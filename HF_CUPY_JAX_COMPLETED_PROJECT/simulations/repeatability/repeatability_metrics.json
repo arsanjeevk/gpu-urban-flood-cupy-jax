@@ -1,0 +1,123 @@
+{
+  "existing_approved_repeatability_criteria": {
+    "depth_rmse_m_max": 0.05,
+    "minimum_csi": 0.95,
+    "snapshot_alignment_s_max": 1
+  },
+  "backends": {
+    "cupy": {
+      "byte_level_identical": false,
+      "maximum_absolute_depth_difference_m": 0.28398916870355606,
+      "mean_absolute_depth_difference_m": 1.4047936607330126e-05,
+      "depth_rmse_m": 0.0004167658782882476,
+      "relative_l2_depth": 0.0026169141409120977,
+      "momentum": {
+        "final_hu_m2ps": {
+          "maximum_absolute": 0.09719616081565619,
+          "rmse": 0.00023081184154043275
+        },
+        "final_hv_m2ps": {
+          "maximum_absolute": 0.09463093685917556,
+          "rmse": 0.00030162357807964274
+        }
+      },
+      "minimum_snapshot_flood_extent_csi": 0.9987396612839701,
+      "all_snapshot_wet_cell_exact_agreement": false,
+      "maximum_depth_difference_m": 1.1444091796875e-05,
+      "final_surface_volume_difference_m3": -528.5758660980582,
+      "final_drainage_storage_difference_m3": -11.810000474913977,
+      "maximum_snapshot_time_difference_s": 0.3544921875,
+      "run_A": {
+        "path": "/home/Ravi/FloodAstra/V1/HF-V1V2/comparisons/user_24h_160_09mm/cupy",
+        "runtime_s": 430.46661716804374,
+        "steps": 321645,
+        "npz_sha256": "1f1b586e72d847c43266e50562f3088ffefaac6239ad9fb810976bcb516f7038"
+      },
+      "run_B": {
+        "path": "/home/Ravi/FloodAstra/V1/HF-V1V2/completed_work/repeatability/cupy_B",
+        "runtime_s": 435.50939701800235,
+        "steps": 321673,
+        "npz_sha256": "35d99980c5c45ec6ff56e9c7d5dd65585e449c9cddf40aeab0132f85f86fd0d0"
+      },
+      "timestep_count_difference": 28,
+      "mass_residual_ratio_difference": 3.6492098060056984e-05,
+      "ledger_differences_m3": {
+        "rainfall_input_m3": 2.1253985166549683,
+        "mass_residual_m3": 1846.9916355013847,
+        "unreturned_overflow_m3": -2.9820581179951233e-06,
+        "surface_recharge_capture_m3": -0.3429252437490504,
+        "final_surface_volume_m3": -528.5758665539324,
+        "initial_surface_volume_m3": 0.0,
+        "boundary_net_flux_m3": 1344.1026349663734,
+        "outfall_discharge_m3": 41.47317293216474,
+        "surface_recharge_loss_m3": 0.03031092699529836,
+        "infiltration_loss_m3": -1.9102143310010433,
+        "final_node_volume_m3": -11.78125,
+        "initial_node_volume_m3": 0.0,
+        "overflow_surcharge_m3": -492.94429840147495,
+        "external_boundary_inflow_m3": -0.0002479833783581853
+      },
+      "classification": "numerically_deterministic_within_existing_parity_criteria"
+    },
+    "jax": {
+      "byte_level_identical": false,
+      "maximum_absolute_depth_difference_m": 0.6030119266360998,
+      "mean_absolute_depth_difference_m": 1.2738326052364157e-05,
+      "depth_rmse_m": 0.0004060996344145994,
+      "relative_l2_depth": 0.002550134581959071,
+      "momentum": {
+        "final_hu_m2ps": {
+          "maximum_absolute": 0.09069291967898607,
+          "rmse": 0.00022107333299190262
+        },
+        "final_hv_m2ps": {
+          "maximum_absolute": 0.07168342545628548,
+          "rmse": 0.0003033133133560436
+        }
+      },
+      "minimum_snapshot_flood_extent_csi": 0.9980311860135455,
+      "all_snapshot_wet_cell_exact_agreement": false,
+      "maximum_depth_difference_m": 6.866455078125e-05,
+      "final_surface_volume_difference_m3": -155.30720773407768,
+      "final_drainage_storage_difference_m3": 8.537516042182688,
+      "maximum_snapshot_time_difference_s": 0.337890625,
+      "run_A": {
+        "path": "/home/Ravi/FloodAstra/V1/HF-V1V2/comparisons/user_24h_160_09mm/jax",
+        "runtime_s": 451.8645031750202,
+        "steps": 321640,
+        "npz_sha256": "5ebdb5f8e7d2426fea59dadcb9bb57a5a30457c5b5351f3f0695f1b89e2e1951"
+      },
+      "run_B": {
+        "path": "/home/Ravi/FloodAstra/V1/HF-V1V2/completed_work/repeatability/jax_B",
+        "runtime_s": 448.3436581939459,
+        "steps": 321664,
+        "npz_sha256": "0d4ff7f858f202b04d267429aed1dc43cfd830820b1f00125cf6c360d100da28"
+      },
+      "timestep_count_difference": 24,
+      "mass_residual_ratio_difference": 2.1700277860465904e-06,
+      "ledger_differences_m3": {
+        "rainfall_input_m3": 288.0,
+        "surface_surcharge_m3": -45.1875,
+        "unreturned_overflow_m3": 8.043833076953888e-06,
+        "boundary_inflow_m3": -0.00026232004165649414,
+        "v1_compatible_mass_residual_m3": 110.67300288379192,
+        "final_surface_volume_m3": -155.3072066642344,
+        "initial_surface_volume_m3": 0.0,
+        "boundary_outflow_m3": 474.0,
+        "boundary_net_flux_m3": -474.0,
+        "recharge_loss_m3": 1.0966796875,
+        "outfall_discharge_m3": -159.5,
+        "infiltration_loss_m3": 8.5,
+        "surface_capture_m3": 573.0,
+        "final_node_volume_m3": 8.537516042182688,
+        "initial_node_volume_m3": 0.0,
+        "overflow_surcharge_m3": 770.0,
+        "final_recharge_storage_m3": 1.1154360175132751,
+        "external_boundary_inflow_m3": 0.0,
+        "complete_mass_residual_m3": 109.55756686627865,
+        "recharge_capture_m3": 2.0703125
+      },
+      "classification": "numerically_deterministic_within_existing_parity_criteria"
+    }
+  }
+}

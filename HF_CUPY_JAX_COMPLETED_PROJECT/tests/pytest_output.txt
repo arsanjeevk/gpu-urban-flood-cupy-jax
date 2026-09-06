@@ -1,0 +1,71 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/Ravi/FloodAstra/V1/HF-V1V2
+configfile: pyproject.toml
+testpaths: tests
+plugins: anyio-4.14.1
+collected 148 items
+
+tests/ai/test_dataset.py ...s.                                           [  3%]
+tests/ai/test_final_orchestration.py .s.                                 [  5%]
+tests/ai/test_losses_evaluation_hybrid.py ...                            [  7%]
+tests/ai/test_model_and_topology.py ..                                   [  8%]
+tests/ai/test_schema.py ....                                             [ 11%]
+tests/ai/test_training_inference.py ..                                   [ 12%]
+tests/ai/test_trajectory_corpus.py ss.                                   [ 14%]
+tests/ai/test_validation.py ......                                       [ 18%]
+tests/benchmarking/test_v1_benchmark.py ..s.......                       [ 25%]
+tests/benchmarking/test_v2_benchmark.py .s....s...                       [ 32%]
+tests/data/test_domain.py ..sss                                          [ 35%]
+tests/physics/test_geometry_and_timestep.py .s...                        [ 39%]
+tests/physics/test_sources_and_update.py ......                          [ 43%]
+tests/physics/test_state_and_flux.py .....                               [ 46%]
+tests/production/test_production_release.py .....                        [ 50%]
+tests/test_anuga_adapter.py .sssssss                                     [ 55%]
+tests/test_anuga_smoke.py sssss                                          [ 58%]
+tests/test_config.py ...                                                 [ 60%]
+tests/test_data_forensics.py .s..                                        [ 63%]
+tests/test_data_inspection.py .....                                      [ 66%]
+tests/test_final_results_package.py s.s                                  [ 68%]
+tests/test_hardware.py ..                                                [ 70%]
+tests/v1/test_precision.py ....                                          [ 72%]
+tests/v1/test_runner.py ...                                              [ 75%]
+tests/v1/test_solver.py .......                                          [ 79%]
+tests/v1/test_torch_backend.py .ss....s                                  [ 85%]
+tests/v2/test_history.py ......s.ssss                                    [ 93%]
+tests/v2/test_jax_backend.py ......sss.                                  [100%]
+
+=============================== warnings summary ===============================
+tests/test_data_inspection.py::test_raster_inspection_excludes_nodata
+  /home/Ravi/FloodAstra/V1/HF-V1V2/src/hybrid_flood/data/inspection.py:121: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+  As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+    values = dataset.read(1, window=window)
+
+tests/test_data_inspection.py::test_raster_inspection_excludes_nodata
+  /home/Ravi/FloodAstra/V1/HF-V1V2/src/hybrid_flood/data/inspection.py:122: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+  As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+    valid_mask = dataset.read_masks(1, window=window) != 0
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+SKIPPED [1] tests/ai/test_dataset.py: legacy controlled-domain test: required 82,921-cell inputs/results were intentionally retired and are prohibited in the production-only release
+SKIPPED [1] tests/ai/test_final_orchestration.py: legacy controlled-domain test: required 82,921-cell inputs/results were intentionally retired and are prohibited in the production-only release
+SKIPPED [2] tests/ai/test_trajectory_corpus.py: legacy controlled-domain test: required 82,921-cell inputs/results were intentionally retired and are prohibited in the production-only release
+SKIPPED [1] tests/benchmarking/test_v1_benchmark.py: legacy controlled-domain test: required 82,921-cell inputs/results were intentionally retired and are prohibited in the production-only release
+SKIPPED [1] tests/benchmarking/test_v2_benchmark.py: legacy controlled-domain test: required 82,921-cell inputs/results were intentionally retired and are prohibited in the production-only release
+SKIPPED [1] tests/benchmarking/test_v2_benchmark.py:193: requires a host without JAX GPU
+SKIPPED [3] tests/data/test_domain.py: legacy controlled-domain test: required 82,921-cell inputs/results were intentionally retired and are prohibited in the production-only release
+SKIPPED [1] tests/physics/test_geometry_and_timestep.py: legacy controlled-domain test: required 82,921-cell inputs/results were intentionally retired and are prohibited in the production-only release
+SKIPPED [7] tests/test_anuga_adapter.py: legacy controlled-domain test: required 82,921-cell inputs/results were intentionally retired and are prohibited in the production-only release
+SKIPPED [5] tests/test_anuga_smoke.py: legacy controlled-domain test: required 82,921-cell inputs/results were intentionally retired and are prohibited in the production-only release
+SKIPPED [1] tests/test_data_forensics.py: legacy controlled-domain test: required 82,921-cell inputs/results were intentionally retired and are prohibited in the production-only release
+SKIPPED [2] tests/test_final_results_package.py: legacy controlled-domain test: required 82,921-cell inputs/results were intentionally retired and are prohibited in the production-only release
+SKIPPED [1] tests/v1/test_torch_backend.py:44: requires a host without CUDA
+SKIPPED [1] tests/v1/test_torch_backend.py:58: requires a host without CUDA
+SKIPPED [1] tests/v1/test_torch_backend.py: legacy controlled-domain test: required 82,921-cell inputs/results were intentionally retired and are prohibited in the production-only release
+SKIPPED [2] tests/v2/test_history.py: legacy controlled-domain test: required 82,921-cell inputs/results were intentionally retired and are prohibited in the production-only release
+SKIPPED [3] tests/v2/test_history.py:182: legacy controlled-domain test: required 82,921-cell inputs/results were intentionally retired and are prohibited in the production-only release
+SKIPPED [1] tests/v2/test_jax_backend.py: legacy controlled-domain test: required 82,921-cell inputs/results were intentionally retired and are prohibited in the production-only release
+SKIPPED [1] tests/v2/test_jax_backend.py:207: requires a host without JAX GPU
+SKIPPED [1] tests/v2/test_jax_backend.py:218: legacy controlled-domain test: required 82,921-cell inputs/results were intentionally retired and are prohibited in the production-only release
+================= 111 passed, 37 skipped, 2 warnings in 10.58s =================

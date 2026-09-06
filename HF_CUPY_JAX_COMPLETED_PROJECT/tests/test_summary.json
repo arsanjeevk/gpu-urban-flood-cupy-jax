@@ -1,0 +1,12 @@
+{
+  "collected": 148,
+  "command": ".venv/bin/python -m pytest -ra",
+  "errors": 0,
+  "failed": 0,
+  "passed": 111,
+  "runtime_s": 10.58,
+  "skip_policy": "Explicit legacy-retired or opposite-hardware classification; skips are not counted as passes.",
+  "skipped": 37,
+  "status": "PASS",
+  "warnings": 2
+}

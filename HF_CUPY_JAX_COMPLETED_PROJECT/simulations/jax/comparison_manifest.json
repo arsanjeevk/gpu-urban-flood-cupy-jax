@@ -1,0 +1,30 @@
+{
+  "candidate_artifacts": {
+    "native_npz": "/home/Ravi/FloodAstra/V1/HF-V1V2/comparisons/user_24h_160_09mm/jax/flood_simulation_outputs.npz",
+    "run_report": "/home/Ravi/FloodAstra/V1/HF-V1V2/comparisons/user_24h_160_09mm/jax/run_report.json",
+    "validation": "/home/Ravi/FloodAstra/V1/HF-V1V2/comparisons/user_24h_160_09mm/jax/parity_validation.json"
+  },
+  "candidate_variant": "jax_v1_parity",
+  "observationally_validated": false,
+  "reference_artifacts": {
+    "native_npz": "/home/Ravi/FloodAstra/V1/HF-V1V2/comparisons/user_24h_160_09mm/cupy/flood_simulation_outputs.npz",
+    "run_report": "/home/Ravi/FloodAstra/V1/HF-V1V2/comparisons/user_24h_160_09mm/cupy/run_report.json"
+  },
+  "reference_variant": "v1_cuda_reference",
+  "schema_version": 1,
+  "summary": {
+    "candidate_v1_compatible_mass_residual_ratio": 0.002915692447120408,
+    "final_flood_extent_csi": 0.9995898150297965,
+    "final_surface_volume_error_fraction": -7.469222818669049e-05,
+    "final_valid_depth_rmse_m": 0.0009793484185934473,
+    "maximum_hourly_surface_volume_error_fraction": 0.00033293607158600317,
+    "maximum_hourly_valid_depth_rmse_m": 0.0009793484185934473,
+    "maximum_snapshot_time_delta_s": 0.318359375,
+    "maximum_source_sink_ledger_error_fraction": 0.015436532317948615,
+    "minimum_hourly_flood_extent_csi": 0.9980314960629921,
+    "overall_candidate_max_depth_m": 9.41482925415039,
+    "overall_reference_max_depth_m": 9.414836883544922,
+    "reference_mass_residual_ratio": 0.002696837408109185
+  },
+  "validation_status": "v1_parity"
+}

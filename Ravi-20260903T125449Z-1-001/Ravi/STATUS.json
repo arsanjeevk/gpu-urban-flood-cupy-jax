@@ -1,0 +1,39 @@
+{
+  "checkpoint_date": "2026-09-03",
+  "timezone": "Asia/Kolkata",
+  "state": "STOPPED_BY_USER_RESUMABLE",
+  "active_processes": 0,
+  "scientific_final_release_complete": false,
+  "baseline_tests": {
+    "collected": 148,
+    "passed": 111,
+    "skipped": 37,
+    "failed": 0,
+    "errors": 0
+  },
+  "official_24h_benchmark": {
+    "cupy": {
+      "warmups_completed": 3,
+      "measurements_completed": 10,
+      "measurements_required": 10,
+      "median_solver_runtime_s": 426.0891162199548,
+      "all_completed_correctness_checks_passed": true
+    },
+    "jax": {
+      "warmups_completed": 3,
+      "measurements_completed": 3,
+      "measurements_required": 10,
+      "partial_median_solver_runtime_s": 448.3277671119431,
+      "all_completed_correctness_checks_passed": true
+    },
+    "official_comparison_available": false
+  },
+  "anuga": {
+    "version": "3.3.10",
+    "compatible_cross_solver_cases_completed": 3,
+    "full_production_attempt": "SCIENTIFICALLY_INCOMPATIBLE_NOT_EXECUTED"
+  },
+  "controlled_scenarios_registered": 9,
+  "scenario_histories_completed": 0,
+  "ai_study_completed": false
+}

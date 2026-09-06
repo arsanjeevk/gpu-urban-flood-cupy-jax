@@ -1,0 +1,33 @@
+# Python and local environments
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# LaTeX build products (retain committed PDFs)
+*.aux
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.nav
+*.out
+*.snm
+*.synctex.gz
+*.toc
+
+# Large simulation and benchmark artifacts
+*.npz
+*.npy
+HF_CUPY_JAX_COMPLETED_PROJECT/inputs/approved_metadata/
+HF_CUPY_JAX_COMPLETED_PROJECT/benchmarks/secondary_60min/raw/
+
+# Editor and operating-system files
+.DS_Store
+.idea/
+.vscode/
+

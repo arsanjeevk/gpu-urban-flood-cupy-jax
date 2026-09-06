@@ -1,0 +1,9 @@
+gate,observed,approved_limit,pass
+all_hour_csi_ge_0_95,0.9980314960629921,>= 0.95,True
+all_hour_depth_rmse_le_0_05m,0.0009793484185934473,<= 0.05 m,True
+all_hour_volume_error_le_2pct,0.00033293607158600317,absolute <= 0.02,True
+finite_non_negative_depth,true,all finite; min >= -1e-7 m,True
+mass_residual_regression_le_0_1pct,0.00021885503901122308,JAX compatible ratio - CuPy ratio <= 0.001 (0.1 percentage point); not an absolute residual limit,True
+overall_max_depth_error_le_5pct,8.10358652584254e-07,absolute relative <= 0.05,True
+snapshot_alignment_le_1s,0.318359375,<= 1 s,True
+source_sink_ledger_error_le_2pct,0.015436532317948615,absolute <= 0.02,True

@@ -1,0 +1,10 @@
+{
+  "criteria": {
+    "depth_rmse_m_max": 0.05,
+    "minimum_csi": 0.95,
+    "snapshot_alignment_s_max": 1
+  },
+  "cupy": "numerically_deterministic_within_existing_parity_criteria",
+  "jax": "numerically_deterministic_within_existing_parity_criteria",
+  "status": "PASS_NUMERICAL_NOT_BITWISE"
+}

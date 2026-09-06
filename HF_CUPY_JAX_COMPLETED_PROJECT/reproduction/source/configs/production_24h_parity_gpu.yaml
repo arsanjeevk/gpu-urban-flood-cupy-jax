@@ -1,0 +1,34 @@
+# Frozen 24-hour identical-condition CuPy/JAX production comparison profile.
+paths:
+  data_dir: data/production_gurugram
+
+topology:
+  mode: exact_production
+
+solver:
+  backend: cupy
+  surface_step_mode: full_swe
+  duration_min: 1440.0
+  snapshot_interval_min: 60.0
+  max_dt_s: 1.0
+  cfl: 0.85
+  cfl_update_interval_steps: 32
+  cfl_reuse_safety_factor: 0.8
+  max_speed_mps: 5.0
+
+physics:
+  infiltration_mode: production_horton
+  bcr_open_fraction: true
+  bcr_min_open_fraction: 0.05
+  use_surface_recharge: true
+  use_external_boundary_inflow: true
+  external_boundary_max_snap_m: 500.0
+  match_reference_initial_node_volume: false
+
+outputs:
+  wet_threshold_m: 0.05
+  geojson_threshold_m: 0.05
+  write_npz: true
+  write_hourly_geojson: false
+  write_basemap_html: false
+  write_timeseries_png: false

@@ -1,0 +1,58 @@
+{
+  "active_triangles": 817573,
+  "dem_finite": 981880,
+  "drainage_nodes": 118768,
+  "enabled_outfalls": 46,
+  "exterior_code4_edges": 34390,
+  "horton_decay_per_hr": {
+    "dtype": "float32",
+    "finite_count": 981880,
+    "maximum": 4.0,
+    "mean": 4.0,
+    "minimum": 4.0,
+    "shape": [
+      981880
+    ],
+    "std": 0.0
+  },
+  "horton_f0_mmhr": {
+    "dtype": "float32",
+    "finite_count": 981880,
+    "maximum": 7.199999809265137,
+    "mean": 1.469291916546561,
+    "minimum": 0.012799996882677078,
+    "shape": [
+      981880
+    ],
+    "std": 2.3102756017349555
+  },
+  "horton_fc_mmhr": {
+    "dtype": "float32",
+    "finite_count": 981880,
+    "maximum": 2.25,
+    "mean": 0.45915373042079627,
+    "minimum": 0.003999999258667231,
+    "shape": [
+      981880
+    ],
+    "std": 0.7219611433781182
+  },
+  "inactive_triangles": 164307,
+  "manning": {
+    "dtype": "float32",
+    "finite_count": 981880,
+    "maximum": 0.07999999821186066,
+    "mean": 0.04612941335285817,
+    "minimum": 0.017999999225139618,
+    "shape": [
+      981880
+    ],
+    "std": 0.023722913462383175
+  },
+  "mapped_inlets": 61317,
+  "nodes": 499901,
+  "pipe_links": 139798,
+  "surface_edges": 1490015,
+  "triangles": 981880,
+  "valid_nonbuilding_triangles": 537450
+}

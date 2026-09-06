@@ -1,0 +1,114 @@
+{
+  "comparison": "CuPy production reference versus JAX/XLA production parity",
+  "rainfall_file": "/home/Ravi/FloodAstra/V1/HF-V1V2/examples/user_24h_rainfall.csv",
+  "rainfall_total_mm": 160.08999999999997,
+  "duration_min": 1440,
+  "gpu_only": true,
+  "same_physics_and_inputs": true,
+  "validation_status": "v1_parity",
+  "passed": true,
+  "all_gates": {
+    "all_hour_csi_ge_0_95": true,
+    "all_hour_depth_rmse_le_0_05m": true,
+    "all_hour_volume_error_le_2pct": true,
+    "finite_non_negative_depth": true,
+    "mass_residual_regression_le_0_1pct": true,
+    "overall_max_depth_error_le_5pct": true,
+    "snapshot_alignment_le_1s": true,
+    "source_sink_ledger_error_le_2pct": true
+  },
+  "cupy": {
+    "runtime_s": 430.46661716804374,
+    "pipeline_s": 437.85967489506584,
+    "steps": 321645,
+    "max_depth_m": 9.414836883544922,
+    "wet_triangles_005m": 129187,
+    "mass_residual_ratio": 0.002696837408109185
+  },
+  "jax": {
+    "runtime_s": 451.8645031750202,
+    "input_load_s": 1.233595003024675,
+    "steps": 321640,
+    "max_depth_m": 9.41482925415039,
+    "wet_triangles_005m": 129180,
+    "v1_compatible_mass_residual_ratio": 0.002915692447120408,
+    "complete_mass_residual_ratio": 0.001663173012348693,
+    "backend": "jax_gpu",
+    "devices": [
+      "cuda:0"
+    ],
+    "loop_mode": "while"
+  },
+  "performance": {
+    "jax_minus_cupy_s": 21.397886006976478,
+    "jax_runtime_over_cupy_percent": 4.9708584019241755,
+    "cupy_speedup_over_jax": 1.0497085840192417,
+    "note": "One end-to-end model run per backend; this is not a repeated statistical benchmark."
+  },
+  "parity": {
+    "candidate_v1_compatible_mass_residual_ratio": 0.002915692447120408,
+    "final_flood_extent_csi": 0.9995898150297965,
+    "final_surface_volume_error_fraction": -7.469222818669049e-05,
+    "final_valid_depth_rmse_m": 0.0009793484185934473,
+    "maximum_hourly_surface_volume_error_fraction": 0.00033293607158600317,
+    "maximum_hourly_valid_depth_rmse_m": 0.0009793484185934473,
+    "maximum_snapshot_time_delta_s": 0.318359375,
+    "maximum_source_sink_ledger_error_fraction": 0.015436532317948615,
+    "minimum_hourly_flood_extent_csi": 0.9980314960629921,
+    "overall_candidate_max_depth_m": 9.41482925415039,
+    "overall_reference_max_depth_m": 9.414836883544922,
+    "reference_mass_residual_ratio": 0.002696837408109185
+  },
+  "drainage_state": {
+    "final_link_flow_mae_m3ps": 0.0001805801975350865,
+    "final_link_flow_max_absolute_error_m3ps": 0.45109983533620834,
+    "final_link_flow_rmse_m3ps": 0.003152664591282466,
+    "final_node_volume_mae_m3": 0.0018376243639085697,
+    "final_node_volume_max_absolute_error_m3": 10.7509765625,
+    "final_node_volume_rmse_m3": 0.0687471169601658
+  },
+  "ledger_comparison": {
+    "boundary_net_flux_m3": {
+      "candidate": -21051882.0,
+      "reference": -21060985.22086653,
+      "reference_field": "boundary_net_flux_m3",
+      "relative_error_fraction": 0.0004322314825762264
+    },
+    "external_boundary_inflow_m3": {
+      "candidate": 783082.5,
+      "reference": 783082.5396060618,
+      "reference_field": "external_boundary_inflow_m3",
+      "relative_error_fraction": -5.057712279472572e-08
+    },
+    "infiltration_loss_m3": {
+      "candidate": 4545672.5,
+      "reference": 4545656.989342939,
+      "reference_field": "infiltration_loss_m3",
+      "relative_error_fraction": 3.4121925823385562e-06
+    },
+    "outfall_discharge_m3": {
+      "candidate": 1060836.75,
+      "reference": 1060887.8681468007,
+      "reference_field": "outfall_discharge_m3",
+      "relative_error_fraction": -4.818430706533013e-05
+    },
+    "rainfall_input_m3": {
+      "candidate": 47701532.0,
+      "reference": 47701360.54457006,
+      "reference_field": "rainfall_input_m3",
+      "relative_error_fraction": 3.5943509364101966e-06
+    },
+    "recharge_capture_m3": {
+      "candidate": 74738.015625,
+      "reference": 75909.79970133872,
+      "reference_field": "surface_recharge_capture_m3",
+      "relative_error_fraction": -0.015436532317948615
+    },
+    "recharge_loss_m3": {
+      "candidate": 11271.0625,
+      "reference": 11288.507164862327,
+      "reference_field": "surface_recharge_loss_m3",
+      "relative_error_fraction": -0.0015453473703437913
+    }
+  }
+}

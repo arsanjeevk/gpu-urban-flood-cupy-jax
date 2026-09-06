@@ -1,0 +1,16 @@
+{
+  "cpu_fallback_used": false,
+  "cuda_runtime_cupy": 13020,
+  "cupy_device": 0,
+  "driver_version": "595.84",
+  "gpu_model": "NVIDIA RTX PRO 4000 Blackwell",
+  "hostname": "user",
+  "jax_devices": [
+    "cuda:0"
+  ],
+  "jax_selected_platform": "gpu",
+  "os": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+  "python": "3.12.14",
+  "pytorch_cuda": true,
+  "total_memory_mib": 24467
+}

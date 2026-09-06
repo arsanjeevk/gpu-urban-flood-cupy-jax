@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "files": [
+    {
+      "path": "/home/Ravi/FloodAstra/V1/HF-V1V2/examples/user_24h_rainfall.csv",
+      "size_bytes": 436,
+      "sha256": "976be1b168055a0279276ab047d3b49899491e4de3d60775017887c5440ca35e"
+    },
+    {
+      "path": "/home/Ravi/FloodAstra/V1/HF-V1V2/comparisons/user_24h_160_09mm/cupy/run_report.json",
+      "size_bytes": 3851,
+      "sha256": "7161b94f65c58f893046dc2528e4b2d763471bc4fa6e6016e8d98f6fdb5c32c9"
+    },
+    {
+      "path": "/home/Ravi/FloodAstra/V1/HF-V1V2/comparisons/user_24h_160_09mm/cupy/flood_simulation_outputs.npz",
+      "size_bytes": 159342766,
+      "sha256": "1f1b586e72d847c43266e50562f3088ffefaac6239ad9fb810976bcb516f7038"
+    },
+    {
+      "path": "/home/Ravi/FloodAstra/V1/HF-V1V2/comparisons/user_24h_160_09mm/jax/run_report.json",
+      "size_bytes": 6422,
+      "sha256": "f07c81773d36d34ae74a10a39796330008726b5e846588a7cbf2bff97b722590"
+    },
+    {
+      "path": "/home/Ravi/FloodAstra/V1/HF-V1V2/comparisons/user_24h_160_09mm/jax/parity_validation.json",
+      "size_bytes": 21848,
+      "sha256": "ee918d3c0b20f9977540965b4c8e94e34982f6686fe238a12b538d4fa4438f95"
+    },
+    {
+      "path": "/home/Ravi/FloodAstra/V1/HF-V1V2/comparisons/user_24h_160_09mm/jax/comparison_manifest.json",
+      "size_bytes": 1554,
+      "sha256": "50ccaa4919b8affbc084563b69cf981970c6f4cf68204f15d778d291dabfec99"
+    },
+    {
+      "path": "/home/Ravi/FloodAstra/V1/HF-V1V2/comparisons/user_24h_160_09mm/jax/flood_simulation_outputs.npz",
+      "size_bytes": 159295775,
+      "sha256": "5ebdb5f8e7d2426fea59dadcb9bb57a5a30457c5b5351f3f0695f1b89e2e1951"
+    },
+    {
+      "path": "/home/Ravi/FloodAstra/V1/HF-V1V2/comparisons/user_24h_160_09mm/comparison_summary.json",
+      "size_bytes": 4246,
+      "sha256": "eac85621833660c0537ea6bc846806903c71063f7ea14ad40ab54873943517cc"
+    },
+    {
+      "path": "/home/Ravi/FloodAstra/V1/HF-V1V2/comparisons/user_24h_160_09mm/hourly_comparison.csv",
+      "size_bytes": 6198,
+      "sha256": "bba8c1242d056416a87d7002f8666a7a851716acc7e822edc150afceeb17ccc0"
+    },
+    {
+      "path": "/home/Ravi/FloodAstra/V1/HF-V1V2/comparisons/user_24h_160_09mm/COMPARISON.md",
+      "size_bytes": 5582,
+      "sha256": "35b03e9163f610a428465bf8d02be7c37201ca55375cf4fa83351e0215ff3a41"
+    },
+    {
+      "path": "/home/Ravi/FloodAstra/V1/HF-V1V2/comparisons/user_24h_160_09mm/figures/depth_rmse.png",
+      "size_bytes": 61548,
+      "sha256": "db40bba0c940a2a4ae71eaed1ab57558c63004fa6fbc0fb9557229b9f3e6146b"
+    },
+    {
+      "path": "/home/Ravi/FloodAstra/V1/HF-V1V2/comparisons/user_24h_160_09mm/figures/flood_extent_csi.png",
+      "size_bytes": 78716,
+      "sha256": "06114cbe843e063d671f8292dc107a02859c04d99b4c37b1d42ed0e0d5843aec"
+    },
+    {
+      "path": "/home/Ravi/FloodAstra/V1/HF-V1V2/comparisons/user_24h_160_09mm/figures/maximum_depth.png",
+      "size_bytes": 55253,
+      "sha256": "afdabb320506fa0b5c91f6422ae6617c48bcd58e184a0817852630e7123454de"
+    },
+    {
+      "path": "/home/Ravi/FloodAstra/V1/HF-V1V2/comparisons/user_24h_160_09mm/figures/surface_volume_error.png",
+      "size_bytes": 65426,
+      "sha256": "b62d5203135a2621d7f3d089d97351866450b211bc7b189f7fbe21771e3c3f6b"
+    },
+    {
+      "path": "/home/Ravi/FloodAstra/V1/HF-V1V2/comparisons/user_24h_160_09mm/figures/wet_triangles.png",
+      "size_bytes": 68168,
+      "sha256": "61341224d315cd5da589db1f8fda9bd6aa18686b66e5f91241c8626fd132ee92"
+    }
+  ]
+}

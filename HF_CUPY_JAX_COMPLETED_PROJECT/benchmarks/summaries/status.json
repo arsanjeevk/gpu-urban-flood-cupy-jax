@@ -1,0 +1,11 @@
+{
+  "all_correctness_passed": true,
+  "classification": "secondary_repeated_60min_production_benchmark_not_full_24h_official_benchmark",
+  "cupy_median_s": 17.267041426501237,
+  "jax_median_s": 18.212523906026036,
+  "jax_runtime_difference_percent": 5.475648411161417,
+  "measurements_per_backend": 10,
+  "official_24h_repeated_benchmark": "NOT_EXECUTED",
+  "secondary_60min_repeated_benchmark": "PASS",
+  "warmups_per_backend": 3
+}

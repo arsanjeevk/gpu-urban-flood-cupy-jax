@@ -1,0 +1,629 @@
+{
+  "cupy": {
+    "active_surface_mask": {
+      "archive": "simulations/cupy/flood_simulation_outputs.npz",
+      "dtype": "bool",
+      "finite_count": 981880,
+      "maximum": 1.0,
+      "mean": 0.8326608139487514,
+      "minimum": 0.0,
+      "shape": [
+        981880
+      ],
+      "std": 0.37327842539176337,
+      "units": "index_or_boolean"
+    },
+    "building_mask": {
+      "archive": "simulations/cupy/flood_simulation_outputs.npz",
+      "dtype": "bool",
+      "finite_count": 981880,
+      "maximum": 1.0,
+      "mean": 0.29027987126736465,
+      "minimum": 0.0,
+      "shape": [
+        981880
+      ],
+      "std": 0.4538914711738554,
+      "units": "index_or_boolean"
+    },
+    "centroids_world": {
+      "archive": "simulations/cupy/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 1963760,
+      "maximum": 3159414.25,
+      "mean": 1924255.184838906,
+      "minimum": 688866.625,
+      "shape": [
+        981880,
+        2
+      ],
+      "std": 1223736.4375555739,
+      "units": "index_or_boolean"
+    },
+    "depth_snapshots_m": {
+      "archive": "simulations/cupy/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 24547000,
+      "maximum": 9.414836883544922,
+      "mean": 0.0371789994488169,
+      "minimum": -8.731149137020111e-11,
+      "shape": [
+        25,
+        981880
+      ],
+      "std": 0.12475625341264711,
+      "units": "m"
+    },
+    "drain_link_from": {
+      "archive": "simulations/cupy/flood_simulation_outputs.npz",
+      "dtype": "int32",
+      "finite_count": 139798,
+      "maximum": 118767.0,
+      "mean": 54399.712020200575,
+      "minimum": 0.0,
+      "shape": [
+        139798
+      ],
+      "std": 35570.47562017128,
+      "units": "index_or_boolean"
+    },
+    "drain_link_to": {
+      "archive": "simulations/cupy/flood_simulation_outputs.npz",
+      "dtype": "int32",
+      "finite_count": 139798,
+      "maximum": 118767.0,
+      "mean": 54252.070716319264,
+      "minimum": 0.0,
+      "shape": [
+        139798
+      ],
+      "std": 35553.52390307827,
+      "units": "index_or_boolean"
+    },
+    "drain_node_volume_snapshots_m3": {
+      "archive": "simulations/cupy/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 2969200,
+      "maximum": 114520.828125,
+      "mean": 4.4709924490640045,
+      "minimum": 0.0,
+      "shape": [
+        25,
+        118768
+      ],
+      "std": 162.3157673112228,
+      "units": "m3"
+    },
+    "drain_node_x_m": {
+      "archive": "simulations/cupy/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 118768,
+      "maximum": 710838.375,
+      "mean": 699756.9457792713,
+      "minimum": 686286.75,
+      "shape": [
+        118768
+      ],
+      "std": 3179.3656829656247,
+      "units": "index_or_boolean"
+    },
+    "drain_node_y_m": {
+      "archive": "simulations/cupy/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 118768,
+      "maximum": 3160109.0,
+      "mean": 3149557.7844305704,
+      "minimum": 3137393.25,
+      "shape": [
+        118768
+      ],
+      "std": 3433.6797328673815,
+      "units": "index_or_boolean"
+    },
+    "final_depth_m": {
+      "archive": "simulations/cupy/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 981880,
+      "maximum": 9.414836883544922,
+      "mean": 0.05500074376006689,
+      "minimum": -5.684341886080802e-14,
+      "shape": [
+        981880
+      ],
+      "std": 0.17969428512931956,
+      "units": "m"
+    },
+    "final_hu_m2ps": {
+      "archive": "simulations/cupy/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 981880,
+      "maximum": 0.23395061492919922,
+      "mean": -0.0014385533991506916,
+      "minimum": -0.49190258979797363,
+      "shape": [
+        981880
+      ],
+      "std": 0.012228623634099793,
+      "units": "m2/s"
+    },
+    "final_hv_m2ps": {
+      "archive": "simulations/cupy/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 981880,
+      "maximum": 0.36355215311050415,
+      "mean": 0.0007084644272869822,
+      "minimum": -0.4630778133869171,
+      "shape": [
+        981880
+      ],
+      "std": 0.01120750697023824,
+      "units": "m2/s"
+    },
+    "final_link_flow_m3ps": {
+      "archive": "simulations/cupy/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 139798,
+      "maximum": 3.408051013946533,
+      "mean": 0.0047783956220060556,
+      "minimum": -1.5613559484481812,
+      "shape": [
+        139798
+      ],
+      "std": 0.04579897384661299,
+      "units": "m3/s"
+    },
+    "final_node_volume_m3": {
+      "archive": "simulations/cupy/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 118768,
+      "maximum": 17095.271484375,
+      "mean": 3.539885273988267,
+      "minimum": 0.0,
+      "shape": [
+        118768
+      ],
+      "std": 118.55113183909899,
+      "units": "m3"
+    },
+    "max_depth_m": {
+      "archive": "simulations/cupy/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 981880,
+      "maximum": 9.414836883544922,
+      "mean": 0.07790564587512926,
+      "minimum": 0.0,
+      "shape": [
+        981880
+      ],
+      "std": 0.1970971709587151,
+      "units": "m"
+    },
+    "max_speed_mps": {
+      "archive": "simulations/cupy/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 981880,
+      "maximum": 1.7127125263214111,
+      "mean": 0.0421212665401054,
+      "minimum": 0.0,
+      "shape": [
+        981880
+      ],
+      "std": 0.08350211782045236,
+      "units": "m/s"
+    },
+    "nodes_world": {
+      "archive": "simulations/cupy/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 999802,
+      "maximum": 3159427.0,
+      "mean": 1924261.027573772,
+      "minimum": 688846.625,
+      "shape": [
+        499901,
+        2
+      ],
+      "std": 1223757.6677125082,
+      "units": "index_or_boolean"
+    },
+    "road_mask": {
+      "archive": "simulations/cupy/flood_simulation_outputs.npz",
+      "dtype": "bool",
+      "finite_count": 981880,
+      "maximum": 1.0,
+      "mean": 0.4172047500712918,
+      "minimum": 0.0,
+      "shape": [
+        981880
+      ],
+      "std": 0.49309729931246093,
+      "units": "index_or_boolean"
+    },
+    "snapshot_times_min": {
+      "archive": "simulations/cupy/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 25,
+      "maximum": 1440.0,
+      "mean": 720.0026004130393,
+      "minimum": 0.01666666753590107,
+      "shape": [
+        25
+      ],
+      "std": 432.66456618637625,
+      "units": "s"
+    },
+    "snapshot_times_s": {
+      "archive": "simulations/cupy/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 25,
+      "maximum": 86400.0,
+      "mean": 43200.15630859375,
+      "minimum": 1.0,
+      "shape": [
+        25
+      ],
+      "std": 25959.874294429366,
+      "units": "s"
+    },
+    "speed_snapshots_mps": {
+      "archive": "simulations/cupy/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 24547000,
+      "maximum": 1.7127125263214111,
+      "mean": 0.016172674597496703,
+      "minimum": 0.0,
+      "shape": [
+        25,
+        981880
+      ],
+      "std": 0.048769357925891994,
+      "units": "m/s"
+    },
+    "terrain_elevation_m": {
+      "archive": "simulations/cupy/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 981880,
+      "maximum": 340.0977783203125,
+      "mean": 234.51236262149556,
+      "minimum": 206.49945068359375,
+      "shape": [
+        981880
+      ],
+      "std": 22.712212199384435,
+      "units": "m"
+    },
+    "triangles": {
+      "archive": "simulations/cupy/flood_simulation_outputs.npz",
+      "dtype": "int32",
+      "finite_count": 2945640,
+      "maximum": 499900.0,
+      "mean": 247890.70598070367,
+      "minimum": 0.0,
+      "shape": [
+        981880,
+        3
+      ],
+      "std": 144975.192098964,
+      "units": "index_or_boolean"
+    }
+  },
+  "jax": {
+    "active_surface_mask": {
+      "archive": "simulations/jax/flood_simulation_outputs.npz",
+      "dtype": "bool",
+      "finite_count": 981880,
+      "maximum": 1.0,
+      "mean": 0.8326608139487514,
+      "minimum": 0.0,
+      "shape": [
+        981880
+      ],
+      "std": 0.37327842539176337,
+      "units": "index_or_boolean"
+    },
+    "building_mask": {
+      "archive": "simulations/jax/flood_simulation_outputs.npz",
+      "dtype": "bool",
+      "finite_count": 981880,
+      "maximum": 1.0,
+      "mean": 0.29027987126736465,
+      "minimum": 0.0,
+      "shape": [
+        981880
+      ],
+      "std": 0.4538914711738554,
+      "units": "index_or_boolean"
+    },
+    "centroids_world": {
+      "archive": "simulations/jax/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 1963760,
+      "maximum": 3159414.25,
+      "mean": 1924255.184838906,
+      "minimum": 688866.625,
+      "shape": [
+        981880,
+        2
+      ],
+      "std": 1223736.4375555739,
+      "units": "index_or_boolean"
+    },
+    "depth_snapshots_m": {
+      "archive": "simulations/jax/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 24547000,
+      "maximum": 9.41482925415039,
+      "mean": 0.03717170957013123,
+      "minimum": 0.0,
+      "shape": [
+        25,
+        981880
+      ],
+      "std": 0.12474755378376153,
+      "units": "m"
+    },
+    "drain_link_from": {
+      "archive": "simulations/jax/flood_simulation_outputs.npz",
+      "dtype": "int32",
+      "finite_count": 139798,
+      "maximum": 118767.0,
+      "mean": 54399.712020200575,
+      "minimum": 0.0,
+      "shape": [
+        139798
+      ],
+      "std": 35570.47562017128,
+      "units": "index_or_boolean"
+    },
+    "drain_link_to": {
+      "archive": "simulations/jax/flood_simulation_outputs.npz",
+      "dtype": "int32",
+      "finite_count": 139798,
+      "maximum": 118767.0,
+      "mean": 54252.070716319264,
+      "minimum": 0.0,
+      "shape": [
+        139798
+      ],
+      "std": 35553.52390307827,
+      "units": "index_or_boolean"
+    },
+    "drain_node_volume_snapshots_m3": {
+      "archive": "simulations/jax/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 2969200,
+      "maximum": 114520.828125,
+      "mean": 4.470587912240228,
+      "minimum": 0.0,
+      "shape": [
+        25,
+        118768
+      ],
+      "std": 162.30675454345374,
+      "units": "m3"
+    },
+    "drain_node_x_m": {
+      "archive": "simulations/jax/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 118768,
+      "maximum": 710838.375,
+      "mean": 699756.9457792713,
+      "minimum": 686286.75,
+      "shape": [
+        118768
+      ],
+      "std": 3179.3656829656247,
+      "units": "index_or_boolean"
+    },
+    "drain_node_y_m": {
+      "archive": "simulations/jax/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 118768,
+      "maximum": 3160109.0,
+      "mean": 3149557.7844305704,
+      "minimum": 3137393.25,
+      "shape": [
+        118768
+      ],
+      "std": 3433.6797328673815,
+      "units": "index_or_boolean"
+    },
+    "final_depth_m": {
+      "archive": "simulations/jax/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 981880,
+      "maximum": 9.41482925415039,
+      "mean": 0.05499951362930511,
+      "minimum": 0.0,
+      "shape": [
+        981880
+      ],
+      "std": 0.17973150134985116,
+      "units": "m"
+    },
+    "final_hu_m2ps": {
+      "archive": "simulations/jax/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 981880,
+      "maximum": 0.23394770920276642,
+      "mean": -0.0014374936153465705,
+      "minimum": -0.4918997585773468,
+      "shape": [
+        981880
+      ],
+      "std": 0.012227892760678805,
+      "units": "m2/s"
+    },
+    "final_hv_m2ps": {
+      "archive": "simulations/jax/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 981880,
+      "maximum": 0.3635585308074951,
+      "mean": 0.0007074792762828774,
+      "minimum": -0.46307697892189026,
+      "shape": [
+        981880
+      ],
+      "std": 0.01120526436564198,
+      "units": "m2/s"
+    },
+    "final_link_flow_m3ps": {
+      "archive": "simulations/jax/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 139798,
+      "maximum": 3.407635450363159,
+      "mean": 0.004794811620440861,
+      "minimum": -1.5545228719711304,
+      "shape": [
+        139798
+      ],
+      "std": 0.04564525653218332,
+      "units": "m3/s"
+    },
+    "final_node_volume_m3": {
+      "archive": "simulations/jax/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 118768,
+      "maximum": 17104.265625,
+      "mean": 3.539854752113141,
+      "minimum": 0.0,
+      "shape": [
+        118768
+      ],
+      "std": 118.57571091628918,
+      "units": "m3"
+    },
+    "max_depth_m": {
+      "archive": "simulations/jax/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 981880,
+      "maximum": 9.41482925415039,
+      "mean": 0.07789545536677571,
+      "minimum": 0.0,
+      "shape": [
+        981880
+      ],
+      "std": 0.19708392085455606,
+      "units": "m"
+    },
+    "max_speed_mps": {
+      "archive": "simulations/jax/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 981880,
+      "maximum": 1.7127116918563843,
+      "mean": 0.042117144961455466,
+      "minimum": 0.0,
+      "shape": [
+        981880
+      ],
+      "std": 0.08350150859708096,
+      "units": "m/s"
+    },
+    "nodes_world": {
+      "archive": "simulations/jax/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 999802,
+      "maximum": 3159427.0,
+      "mean": 1924261.027573772,
+      "minimum": 688846.625,
+      "shape": [
+        499901,
+        2
+      ],
+      "std": 1223757.6677125082,
+      "units": "index_or_boolean"
+    },
+    "road_mask": {
+      "archive": "simulations/jax/flood_simulation_outputs.npz",
+      "dtype": "bool",
+      "finite_count": 981880,
+      "maximum": 1.0,
+      "mean": 0.4172047500712918,
+      "minimum": 0.0,
+      "shape": [
+        981880
+      ],
+      "std": 0.49309729931246093,
+      "units": "index_or_boolean"
+    },
+    "snapshot_times_min": {
+      "archive": "simulations/jax/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 25,
+      "maximum": 1440.0,
+      "mean": 720.0022755534202,
+      "minimum": 0.01666666753590107,
+      "shape": [
+        25
+      ],
+      "std": 432.6649873366724,
+      "units": "s"
+    },
+    "snapshot_times_s": {
+      "archive": "simulations/jax/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 25,
+      "maximum": 86400.0,
+      "mean": 43200.13650390625,
+      "minimum": 1.0,
+      "shape": [
+        25
+      ],
+      "std": 25959.89929115703,
+      "units": "s"
+    },
+    "speed_snapshots_mps": {
+      "archive": "simulations/jax/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 24547000,
+      "maximum": 1.7127116918563843,
+      "mean": 0.01617449016135935,
+      "minimum": 0.0,
+      "shape": [
+        25,
+        981880
+      ],
+      "std": 0.04876777067187674,
+      "units": "m/s"
+    },
+    "steps_at_snapshot": {
+      "archive": "simulations/jax/flood_simulation_outputs.npz",
+      "dtype": "int64",
+      "finite_count": 25,
+      "maximum": 321640.0,
+      "mean": 149862.08,
+      "minimum": 1.0,
+      "shape": [
+        25
+      ],
+      "std": 98820.79965752958,
+      "units": "index_or_boolean"
+    },
+    "terrain_elevation_m": {
+      "archive": "simulations/jax/flood_simulation_outputs.npz",
+      "dtype": "float32",
+      "finite_count": 981880,
+      "maximum": 340.0977783203125,
+      "mean": 234.51236262149556,
+      "minimum": 206.49945068359375,
+      "shape": [
+        981880
+      ],
+      "std": 22.712212199384435,
+      "units": "m"
+    },
+    "triangles": {
+      "archive": "simulations/jax/flood_simulation_outputs.npz",
+      "dtype": "int32",
+      "finite_count": 2945640,
+      "maximum": 499900.0,
+      "mean": 247890.70598070367,
+      "minimum": 0.0,
+      "shape": [
+        981880,
+        3
+      ],
+      "std": 144975.192098964,
+      "units": "index_or_boolean"
+    }
+  }
+}

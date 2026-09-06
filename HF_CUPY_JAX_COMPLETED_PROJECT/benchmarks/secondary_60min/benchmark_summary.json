@@ -1,0 +1,59 @@
+{
+  "classification": "secondary_repeated_60min_production_benchmark_not_full_24h_official_benchmark",
+  "warmups_per_backend": 3,
+  "measurements_per_backend": 10,
+  "all_correctness_passed": true,
+  "backends": {
+    "cupy": {
+      "n": 10,
+      "mean_s": 17.333616133208853,
+      "median_s": 17.267041426501237,
+      "minimum_s": 16.983007823000662,
+      "maximum_s": 17.854433418018743,
+      "population_std_s": 0.33346434602510316,
+      "iqr_s": 0.628316222311696,
+      "coefficient_of_variation": 0.01923801377983852,
+      "confidence_interval_95_s": [
+        17.126932790236875,
+        17.54029947618083
+      ],
+      "median_steps_per_s": 758.4426670917261,
+      "median_simulated_hours_per_wall_hour": 208.5065751454917,
+      "step_counts": [
+        13080,
+        13081,
+        13085,
+        13090,
+        13095,
+        13096
+      ]
+    },
+    "jax": {
+      "n": 10,
+      "mean_s": 18.21530918460339,
+      "median_s": 18.212523906026036,
+      "minimum_s": 18.185588655993342,
+      "maximum_s": 18.251359199057333,
+      "population_std_s": 0.021280002201850404,
+      "iqr_s": 0.025220922572771087,
+      "coefficient_of_variation": 0.0011682482018936832,
+      "confidence_interval_95_s": [
+        18.20211970259143,
+        18.228498666615355
+      ],
+      "median_steps_per_s": 718.5145538045772,
+      "median_simulated_hours_per_wall_hour": 197.66618128261132,
+      "step_counts": [
+        13067,
+        13080,
+        13081,
+        13084,
+        13090,
+        13096
+      ]
+    }
+  },
+  "jax_runtime_difference_percent": 5.475648411161417,
+  "cupy_runtime_over_jax_runtime_ratio": 0.9480861365287233,
+  "ratio_direction": "CuPy median divided by JAX median"
+}
