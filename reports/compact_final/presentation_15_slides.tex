@@ -7,6 +7,8 @@
 \usepackage{booktabs,tabularx,array}
 \usepackage{siunitx}
 \usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric}
 
 \graphicspath{{figures/}}
 \sisetup{detect-all,group-separator={,},group-minimum-digits=4}
@@ -35,15 +37,25 @@
 \setbeamerfont{caption}{size=\tiny}
 \setlength{\tabcolsep}{4pt}
 
-\newcommand{\evsource}{\par\vspace{1mm}{\tiny\color{gray}Source: \texttt{HF\_CUPY\_JAX\_COMPLETED\_PROJECT}.}}
-\newcommand{\jaxsource}{\par\vspace{1mm}{\tiny\color{gray}Background synthesis: S. Borah, \textit{High-Performance Scientific Computing in Python: The JAX Ecosystem} (2026); project implementation evidence.}}
+\newcommand{\evsource}{\par\vspace{1mm}{\tiny\color{gray}Source: completed-project evidence package and final report.}}
 \newcommand{\tightitem}{\setlength\itemsep{2pt}\setlength\parskip{0pt}}
+\newcommand{\resultbox}[2]{%
+  \fcolorbox{hfblue}{hflight}{\parbox[c][12mm][c]{0.34\textwidth}{\centering
+  {\scriptsize #1}\par\vspace{1mm}{\Large\bfseries\color{hfblue}#2}}}
+}
+\tikzset{
+  flow/.style={draw=hfblue,fill=hflight,rounded corners=2pt,align=center,
+    minimum height=9mm,inner sep=4pt,font=\small},
+  flowarrow/.style={-{Latex[length=2.3mm]},very thick,draw=hforange},
+  branch/.style={draw=hfblue,fill=white,rounded corners=2pt,align=center,
+    minimum width=35mm,minimum height=12mm,font=\small}
+}
 
 \title{GPU-Accelerated Physics-Based\\Urban Flood Modelling}
 \subtitle{A production comparison of CuPy/CUDA and JAX/XLA}
 \author{Sanjeev Kumawat}
 \institute{M.Sc. Student, Indian Institute of Technology Hyderabad\\[2mm]
-Under the guidance of Udit Bhatia\\Associate Professor, Indian Institute of Gandhinagar}
+Under the guidance of Prof. Udit Bhatia\\Associate Professor, Indian Institute of Gandhinagar}
 \date{August 2026}
 
 \begin{document}
@@ -59,7 +71,7 @@ Under the guidance of Udit Bhatia\\Associate Professor, Indian Institute of Gand
   {\normalsize\textbf{Sanjeev Kumawat}\par}
   {\small M.Sc. Student, Indian Institute of Technology Hyderabad\par}
   \vspace{5mm}
-  {\small Under the guidance of \textbf{Udit Bhatia}\par}
+  {\small Under the guidance of \textbf{Prof. Udit Bhatia}\par}
   {\small Associate Professor, Indian Institute of Gandhinagar\par}
   \vspace{6mm}
   \includegraphics[height=13mm]{iitgn_logo.png}\hspace{8mm}
@@ -69,504 +81,478 @@ Under the guidance of Udit Bhatia\\Associate Professor, Indian Institute of Gand
 \end{frame}
 
 % 2
-\begin{frame}{1. Research question and completed contribution}
-\begin{block}{Central question}
-Can two GPU programming systems execute the same city-scale physics-based flood model and
-remain numerically equivalent under predefined scientific criteria?
-\end{block}
+\begin{frame}{1. City-scale flood physics creates a computational bottleneck}
+\centering
+\begin{tikzpicture}[node distance=8mm]
+  \node[flow,text width=35mm] (physics) {Rainfall, terrain, infiltration,\\ friction and drainage};
+  \node[flow,text width=38mm,right=of physics] (mesh) {Millions of irregular\\ cell and edge updates};
+  \node[flow,text width=35mm,right=of mesh] (time) {Adaptive timesteps over\\ a full flood event};
+  \draw[flowarrow] (physics) -- (mesh);
+  \draw[flowarrow] (mesh) -- (time);
+\end{tikzpicture}
 
-The completed study implements one production model through \textbf{CuPy/CUDA} and
-\textbf{JAX/XLA}. Both paths use the same mesh, terrain, resistance, rainfall, infiltration,
-drainage, recharge, boundary forcing, precision and output schedule.
+\vspace{7mm}
+\begin{columns}[T,onlytextwidth]
+\column{0.48\textwidth}
+\begin{block}{Scientific need}
+Urban flooding requires conservation-based simulation of rapidly changing wet and dry flow
+over complex topography and coupled drainage infrastructure.
+\end{block}
+\column{0.48\textwidth}
+\begin{block}{Computational need}
+Real-time or near-real-time use demands substantially faster execution without changing the
+equations, forcing, numerical controls or physical interpretation.
+\end{block}
+\end{columns}
+
+\vspace{2mm}
+\centering\color{hfblue}\large\bfseries Acceleration matters only if numerical fidelity is preserved.
+\end{frame}
+
+% 3
+\begin{frame}{2. Research question: can acceleration preserve the model?}
+\begin{block}{Central research question}
+Can the \textbf{same physics-based urban flood model} be implemented through two GPU
+programming approaches while preserving numerical equivalence, and how do their measured
+computational performances compare?
+\end{block}
 
 \vspace{3mm}
 \begin{columns}[T,onlytextwidth]
 \column{0.48\textwidth}
-\textbf{Completed evidence}
+\textbf{Objectives}
 \begin{itemize}\tightitem
-\item Full 24-hour production runs on one GPU
-\item Cross-backend parity and repeatability
-\item Mass-ledger and software verification
-\item Repeated secondary GPU benchmark
+\item Implement equivalent GPU execution paths.
+\item Hold physics, inputs and numerical controls fixed.
+\item Test cross-backend parity and repeatability.
+\item Compare synchronized GPU runtimes.
 \end{itemize}
 \column{0.48\textwidth}
-\textbf{Scientific interpretation}
-
-The evidence establishes implementation correctness and numerical consistency. It does not
-convert model output into observed flood truth; physical accuracy remains a separate
-validation question.
+\textbf{Evidence required}
+\begin{enumerate}\tightitem
+\item Scientific model and discretization
+\item Controlled implementation correspondence
+\item Predefined correctness gates
+\item Performance only after parity passes
+\end{enumerate}
 \end{columns}
-\evsource
-\end{frame}
 
-% 3
-\begin{frame}{2. Production domain and drainage network}
-\begin{columns}[T,onlytextwidth]
-\column{0.60\textwidth}
-\begin{columns}[T,onlytextwidth]
-\column{0.50\textwidth}
-\includegraphics[width=\linewidth]{01_mesh_active_cells.png}
-\centering{\tiny Active and inactive surface triangles}
-\column{0.50\textwidth}
-\includegraphics[width=\linewidth]{07_drainage.png}
-\centering{\tiny Surface-associated drainage network}
-\end{columns}
-\column{0.37\textwidth}
-\small
-\begin{tabular}{@{}lr@{}}
-\toprule
-Mesh vertices & 499,901\\
-Triangles & 981,880\\
-Active triangles & 817,573\\
-Surface edges & 1,490,015\\
-Active area & 297.966 km$^2$\\
-Exterior edges & 34,390\\
-\midrule
-Drainage nodes & 118,768\\
-Drainage links & 139,798\\
-Mapped inlets & 61,317\\
-Enabled outfalls & 46\\
-Recharge records & 447\\
-\bottomrule
-\end{tabular}
-
-\vspace{2mm}
-Projected coordinate system: \textbf{EPSG:32643}.
-\end{columns}
-\evsource
+\vspace{3mm}
+\centering\small Numerical verification is the prerequisite; observed-flood validation is a separate question.
 \end{frame}
 
 % 4
-\begin{frame}{3. Terrain, resistance and rainfall inputs}
-\begin{columns}[T,onlytextwidth]
-\column{0.32\textwidth}
-\includegraphics[width=\linewidth]{02_dem.png}
-\centering{\tiny Bed elevation for all 981,880 cells}
-\column{0.32\textwidth}
-\includegraphics[width=\linewidth]{04_manning.png}
-\centering{\tiny Spatial Manning $n$: 0.018--0.080}
-\column{0.34\textwidth}
-\includegraphics[width=\linewidth]{05_rainfall.png}
-\centering{\tiny 24-hour rainfall: 160.09 mm}
-\end{columns}
-
-\vspace{2mm}
+\begin{frame}{3. The scientific core is the two-dimensional shallow-water model}
 \small
-Terrain enters hydrostatic reconstruction and hydraulic head. Manning resistance is active
-friction, not metadata. Rainfall is hourly piecewise constant and spatially uniform, while
-Horton losses are spatially heterogeneous: $f_0=0.0128$--7.2 mm h$^{-1}$,
-$f_c=0.004$--2.25 mm h$^{-1}$ and $k=4$ h$^{-1}$.
-\evsource
-\end{frame}
-
-% 5
-\begin{frame}{4. Coupled surface, drainage and boundary processes}
-\begin{columns}[T,onlytextwidth]
-\column{0.48\textwidth}
-\includegraphics[width=\linewidth,height=0.62\textheight,keepaspectratio]{08_boundaries.png}
-\centering{\tiny Exterior code-4 outflow-only boundary locations}
-\column{0.49\textwidth}
-\small
-\begin{block}{Surface--node exchange}
-\[
-Q_e=C_dA_e\sqrt{2g\lvert H_s-H_n\rvert}\,
-\operatorname{sgn}(H_s-H_n)
-\]
-\end{block}
-Water can enter mapped inlets, move through capacity-limited links, discharge through
-outfalls, or return to the surface as surcharge. Recharge captures eligible surface water
-and tracks storage and removal.
-
-\vspace{2mm}
-Inactive neighbours behave as reflective walls. Exterior code-4 edges allow outward flux;
-the prescribed hydrograph is applied separately to 150 receiver cells. Its recorded peak
-total flow is 95.1714 m$^3$ s$^{-1}$.
-\end{columns}
-\evsource
-\end{frame}
-
-% 6
-\begin{frame}{5. Governing physics and source terms}
-\small
-The conserved surface state is $\bm U=[h,hu,hv]^{\mathsf T}$ and obeys
+\begin{block}{Conservative balance law}
 \[
 \frac{\partial\bm U}{\partial t}+\frac{\partial\bm F}{\partial x}
 +\frac{\partial\bm G}{\partial y}=\bm S,
-\quad
-\bm F=\begin{bmatrix}hu\\hu^2+\tfrac12gh^2\\huv\end{bmatrix},\quad
-\bm G=\begin{bmatrix}hv\\huv\\hv^2+\tfrac12gh^2\end{bmatrix}.
+\qquad \bm U=[h,hu,hv]^{\mathsf T}.
 \]
+\end{block}
 
 \begin{columns}[T,onlytextwidth]
+\column{0.47\textwidth}
+\textbf{What the state represents}
+\begin{itemize}\tightitem
+\item $h$: water depth
+\item $hu,hv$: depth-integrated momentum
+\item Fluxes transport conserved water and momentum
+\item Sources represent terrain and coupled processes
+\end{itemize}
 \column{0.49\textwidth}
-\begin{block}{Horton infiltration}
-\[
-f(\tau)=f_c+(f_0-f_c)e^{-k\tau}
-\]
-Actual removal is limited by capacity and available surface water.
-\end{block}
-\column{0.49\textwidth}
-\begin{block}{Semi-implicit Manning friction}
-\[
-\bm q^{n+1}=\frac{\bm q^*}{1+\Delta t\,g n^2
-\lVert\bm u^*\rVert/\max(h,h_{\min})^{4/3}}
-\]
-Here $\bm q=(hu,hv)$ and $h_{\min}=10^{-5}$ m.
-\end{block}
+\textbf{Why finite volume?}
+
+The method balances fluxes across cell edges, directly supports conservation on an
+unstructured triangular mesh, and accommodates irregular urban geometry, wet--dry fronts,
+terrain steps and boundary interfaces.
 \end{columns}
+
+\vspace{3mm}
+\centering\color{hfblue}\bfseries The physics defines what must be preserved by both GPU paths.
 \end{frame}
 
-% 7
-\begin{frame}{6. Finite-volume method and stable update}
-\small
-For triangular cell $i$ with area $A_i$,
+% 5
+\begin{frame}{4. The flood model is computed as a staged conservative update}
+\centering
+\begin{tikzpicture}[node distance=3mm]
+  \node[flow,text width=21mm] (mesh) {Triangular mesh\\and cell state};
+  \node[flow,text width=23mm,right=of mesh] (recon) {Hydrostatic\\reconstruction};
+  \node[flow,text width=19mm,right=of recon] (hll) {HLL edge\\fluxes};
+  \node[flow,text width=22mm,right=of hll] (acc) {Conservative\\accumulation};
+  \node[flow,text width=22mm,right=of acc] (src) {Physical and\\network sources};
+  \draw[flowarrow] (mesh) -- (recon);
+  \draw[flowarrow] (recon) -- (hll);
+  \draw[flowarrow] (hll) -- (acc);
+  \draw[flowarrow] (acc) -- (src);
+\end{tikzpicture}
+
+\vspace{4mm}
 \[
 \bm U_i^{n+1}=\bm U_i^n-\frac{\Delta t}{A_i}
 \sum_{e\in\partial i}L_e\widehat{\bm F}_{e,i}+\Delta t\,\bm S_i.
 \]
-The HLL interface flux uses left/right signal speeds $s_L,s_R$:
-\[
-\widehat{\bm F}_{\rm HLL}=
-\frac{s_R\bm F_L-s_L\bm F_R+s_Ls_R(\bm U_R-\bm U_L)}{s_R-s_L}.
-\]
 
 \begin{columns}[T,onlytextwidth]
 \column{0.49\textwidth}
-\textbf{Well-balanced terrain treatment}
 \small
-\[
-\begin{aligned}
-z^*&=\max(z_L,z_R),\\
-h_L^*&=\max(h_L+z_L-z^*,0),\\
-h_R^*&=\max(h_R+z_R-z^*,0).
-\end{aligned}
-\]
+\textbf{Surface physics:} bed elevation, HLL flux, wetting/drying, semi-implicit Manning
+friction, rainfall and Horton infiltration.
 \column{0.49\textwidth}
-\textbf{Adaptive timestep}
 \small
-\[
-\Delta t=\min\!\left[1\ \mathrm{s},\;0.85\min_i
-\frac{\ell_i}{\lVert\bm u_i\rVert+\sqrt{gh_i}}\right].
-\]
+\textbf{Coupled processes:} drainage capture, link routing, surcharge, outfalls, recharge,
+external inflow and outflow-only boundaries.
 \end{columns}
-\vspace{1mm}
-Flux, friction, rainfall, infiltration, boundary input, network exchange, outfall, surcharge
-and recharge are applied in the same order in both backends.
+
+\vspace{3mm}
+\centering\small CFL-controlled adaptive timesteps keep the explicit update stable.
 \end{frame}
 
-% 8
-\begin{frame}{7. Two GPU implementations of one model}
+% 6
+\begin{frame}{5. The workload is highly parallel---but structurally difficult}
 \begin{columns}[T,onlytextwidth]
-\column{0.48\textwidth}
-\begin{block}{CuPy/CUDA}
-Device-resident NumPy-style arrays with fused custom CUDA kernels for surface and drainage
-operations. Recorded implementation:
-\texttt{gurugram\_flood\_backend\_fused\_cuda}.
-\end{block}
-\column{0.48\textwidth}
-\begin{block}{JAX/XLA}
-Immutable array state, scatter reductions and an XLA-compiled \texttt{while\_loop}.
-Recorded implementation:
-\texttt{hybrid\_flood\_v2\_jax\_v1\_parity}.
-\end{block}
+\column{0.54\textwidth}
+\centering
+\begin{tikzpicture}[node distance=5mm]
+  \node[flow,text width=44mm] (edges) {1,490,015 edge-local\\reconstruction and flux tasks};
+  \node[flow,text width=44mm,below=of edges] (cells) {Indexed accumulation into\\981,880 triangular cells};
+  \node[flow,text width=44mm,below=of cells] (network) {139,798 drainage links and\\118,768 drainage nodes};
+  \draw[flowarrow] (edges) -- (cells);
+  \draw[flowarrow] (cells) -- (network);
+\end{tikzpicture}
+\column{0.42\textwidth}
+\textbf{GPU opportunity}
+\begin{itemize}\tightitem
+\item Many edge, cell and link operations are independent.
+\item Major arrays can remain device-resident.
+\end{itemize}
+
+\vspace{3mm}
+\textbf{GPU challenge}
+\begin{itemize}\tightitem
+\item Irregular mesh connectivity
+\item Scatter/indexed reductions
+\item Wet--dry branching and safeguards
+\item Adaptive time integration
+\item Surface--network exchange ordering
+\end{itemize}
 \end{columns}
 
-\small
-\begin{tabularx}{\textwidth}{@{}lXX@{}}
+\vspace{3mm}
+\centering\color{hfblue}\bfseries This motivates two implementation strategies for one numerical model.
+\end{frame}
+
+% 7
+\begin{frame}{6. One flood model is expressed through two GPU backends}
+\centering
+\begin{tikzpicture}[node distance=8mm]
+  \node[flow,text width=52mm,minimum height=13mm] (model) {\textbf{Same flood model}\\equations, inputs, ordering and precision};
+  \node[branch,below=11mm of model,xshift=-30mm] (cupy) {\textbf{CuPy/CUDA}\\device arrays + fused CUDA kernels};
+  \node[branch,below=11mm of model,xshift=30mm] (jax) {\textbf{JAX/XLA}\\functional arrays + compiled operations};
+  \draw[flowarrow] (model.south) -- ++(0,-3mm) -| (cupy.north);
+  \draw[flowarrow] (model.south) -- ++(0,-3mm) -| (jax.north);
+\end{tikzpicture}
+
+\vspace{5mm}
+\begin{tabularx}{0.90\textwidth}{@{}lXX@{}}
 \toprule
-& \textbf{CuPy} & \textbf{JAX}\\
+& \textbf{CuPy/CUDA path} & \textbf{JAX/XLA path}\\
 \midrule
-Execution device & CUDA device 0 & \texttt{cuda:0}\\
-Production steps & 321,645 & 321,640\\
-Surface precision & float32 & float32\\
-GPU fallback & none & none\\
+Surface state & Mutable device arrays & Immutable named state tuple\\
+Edge accumulation & Fused CUDA kernels & XLA scatter reductions\\
+Time integration & Host-directed launches & Compiled \texttt{lax.while\_loop}\\
+Acceptance & \multicolumn{2}{c}{Agreement of physical outputs and ledgers}\\
 \bottomrule
 \end{tabularx}
 
 \vspace{2mm}
-\textbf{Platform:} NVIDIA RTX PRO 4000 Blackwell, 24,467 MiB; driver 595.84. PyTorch CUDA
-availability was recorded, but PyTorch did not execute the reported production experiment.
+\centering\small Different execution strategies do not imply different physics.
+\end{frame}
+
+% 8
+\begin{frame}{7. Both paths ran on one controlled GPU environment}
+\begin{columns}[T,onlytextwidth]
+\column{0.61\textwidth}
+\scriptsize
+\begin{tabularx}{\textwidth}{@{}lXX@{}}
+\toprule
+& \textbf{CuPy/CUDA} & \textbf{JAX/XLA}\\
+\midrule
+Recorded version & CuPy 14.1.1 & JAX/jaxlib 0.10.2\\
+Device & CUDA device 0 & \texttt{cuda:0}\\
+Surface precision & float32 & float32\\
+Execution style & Fused kernels & XLA JIT\\
+GPU fallback & none & none\\
+\bottomrule
+\end{tabularx}
+
+\vspace{4mm}
+\begin{block}{JAX execution discipline}
+Pure array functions are traced and lowered through XLA. Compilation is distinguished from
+steady execution, and accelerator work is synchronized before timing.
+\end{block}
+\column{0.35\textwidth}
+\begin{block}{Recorded platform}
+\small
+NVIDIA RTX PRO 4000 Blackwell\\
+24,467 MiB GPU memory\\
+Driver 595.84\\
+CuPy CUDA runtime 13.2\\
+Python 3.12.14
+\end{block}
+\begin{alertblock}{PyTorch scope}
+\scriptsize
+PyTorch 2.13.0+cu130 was installed and CUDA availability was confirmed, but it was
+\textbf{not} a production or benchmark backend. No PyTorch timing claim is made.
+\end{alertblock}
+\end{columns}
 \evsource
 \end{frame}
 
 % 9
-\begin{frame}{8. PyTorch/CUDA: capability and project role}
+\begin{frame}{8. A fair experiment holds the complete production case fixed}
 \begin{columns}[T,onlytextwidth]
-\column{0.47\textwidth}
-\begin{block}{What PyTorch provides}
+\column{0.39\textwidth}
+\begin{columns}[T,onlytextwidth]
+\column{0.50\textwidth}
+\includegraphics[width=\linewidth]{01_mesh_active_cells.png}
+\centering{\tiny Production triangular domain}
+\column{0.50\textwidth}
+\includegraphics[width=\linewidth]{05_rainfall.png}
+\centering{\tiny 24-hour rainfall forcing}
+\end{columns}
+\vspace{2mm}
+\scriptsize
+\begin{tabular}{@{}lr@{}}
+\toprule
+Active area & 297.966 km$^2$\\
+Triangles & 981,880\\
+Drainage nodes / links & 118,768 / 139,798\\
+Rainfall total & 160.09 mm\\
+Simulation / outputs & 24 h / hourly\\
+\bottomrule
+\end{tabular}
+\column{0.57\textwidth}
+\begin{block}{Common experimental controls}
 \small
-An imperative tensor-programming interface, CUDA device execution, automatic differentiation
-and a mature ecosystem for scientific machine learning and neural-network development.
+Both backends received the same hashed topology, terrain, Manning field, rainfall,
+infiltration, drainage, recharge, boundary and external-inflow data; the same state ordering,
+source sequence, float32 precision, CFL 0.85, 1 s maximum timestep, 5 m s$^{-1}$ velocity
+ceiling and output targets.
 \end{block}
-\small
-Its eager execution model is convenient for inspecting intermediate tensors, while graph
-capture and compilation facilities can optimize suitable workloads.
 
-\column{0.49\textwidth}
-\begin{block}{Role in this completed experiment}
-\small
-PyTorch 2.13.0+cu130 was installed and CUDA availability was confirmed on the production
-system. It did \textbf{not} execute the reported flood simulations.
-\end{block}
-\small
-The measured backends were CuPy/CUDA and JAX/XLA. Consequently:
-\begin{itemize}\tightitem
-\item no PyTorch runtime is reported;
-\item no PyTorch speed ranking is claimed;
-\item PyTorch is discussed only as relevant GPU-computing context.
-\end{itemize}
+\begin{tikzpicture}[node distance=3mm]
+  \node[flow,text width=19mm] (input) {Common inputs};
+  \node[flow,text width=14mm,right=of input,yshift=7mm] (c) {CuPy};
+  \node[flow,text width=14mm,right=of input,yshift=-7mm] (j) {JAX};
+  \node[flow,text width=21mm,right=of c,yshift=-7mm] (out) {Comparable outputs};
+  \draw[flowarrow] (input.east) -- (c.west);
+  \draw[flowarrow] (input.east) -- ++(2mm,0) |- (j.west);
+  \draw[flowarrow] (c.east) -- (out.west);
+  \draw[flowarrow] (j.east) -- (out.west);
+\end{tikzpicture}
 \end{columns}
 \evsource
 \end{frame}
 
 % 10
-\begin{frame}{9. JAX: functional programs compiled through XLA}
+\begin{frame}{9. Correctness gates are passed before performance is compared}
 \begin{columns}[T,onlytextwidth]
-\column{0.56\textwidth}
-\begin{block}{Pure state transition}
-\[
-(\bm U^{n+1},\bm D^{n+1})=
-\Phi(\bm U^n,\bm D^n;\,\Delta t,\mathcal G,\mathcal P),
-\]
-where surface state $\bm U$, drainage state $\bm D$, geometry $\mathcal G$ and physical
-parameters $\mathcal P$ are explicit inputs and outputs.
-\end{block}
+\column{0.65\textwidth}
+\scriptsize
+\begin{tabularx}{\textwidth}{@{}Xr@{}}
+\toprule
+\textbf{Predefined parity gate} & \textbf{Approved limit}\\
+\midrule
+Minimum hourly flood-extent CSI & $\geq0.95$\\
+Maximum hourly depth RMSE & $\leq0.05$ m\\
+Maximum hourly volume error & $\leq2\%$\\
+Finite/non-negative depth & minimum $\geq-10^{-7}$ m\\
+Residual-ratio regression & increase $\leq0.001$\\
+Maximum-depth relative error & $\leq5\%$\\
+Snapshot-time mismatch & $\leq1$ s\\
+Source--sink ledger difference & $\leq2\%$\\
+\bottomrule
+\end{tabularx}
+\column{0.31\textwidth}
+\begin{block}{Acceptance philosophy}
 \small
-JAX traces array operations with known shapes and dtypes, constructs an intermediate graph,
-and lowers it through XLA. XLA can fuse compatible operations and generate device code while
-JAX preserves an immutable programming interface.
-
-\column{0.40\textwidth}
+Limits were registered before interpreting the comparison. CuPy defines the numerical
+reference direction; it is not observed truth.
+\end{block}
 \centering
-\setlength{\fboxsep}{5pt}
-\fcolorbox{hfblue}{hflight}{\parbox{0.76\linewidth}{\centering Python array function}}
-
-$\Downarrow$ trace
-
-\fcolorbox{hfblue}{hflight}{\parbox{0.76\linewidth}{\centering JAX computation graph}}
-
-$\Downarrow$ lower and optimize
-
-\fcolorbox{hfblue}{hflight}{\parbox{0.76\linewidth}{\centering XLA executable}}
-
-$\Downarrow$
-
-\fcolorbox{hfgreen}{white}{\parbox{0.76\linewidth}{\centering NVIDIA GPU}}
+\begin{tikzpicture}[node distance=4mm]
+  \node[flow,text width=27mm] (same) {Same model and inputs};
+  \node[flow,text width=27mm,below=of same] (gate) {Eight parity gates};
+  \node[flow,text width=27mm,below=of gate,fill=white] (perf) {Performance comparison};
+  \draw[flowarrow] (same) -- (gate);
+  \draw[flowarrow] (gate) -- node[right,font=\tiny]{only if passed} (perf);
+\end{tikzpicture}
 \end{columns}
-\jaxsource
+
+\centering\color{hfblue}\normalsize\bfseries Speed is scientifically meaningful only after equivalence is established.
 \end{frame}
 
 % 11
-\begin{frame}{10. JAX/XLA choices in the flood solver}
-\small
-\begin{tabularx}{\textwidth}{@{}p{0.24\textwidth}XX@{}}
-\toprule
-\textbf{JAX mechanism} & \textbf{Use in this project} & \textbf{Scientific implication}\\
-\midrule
-\texttt{jit} and XLA & Compiles the production update & Compilation is distinguished from steady execution\\
-Immutable state & Named state tuples are returned by each update & State evolution is explicit and traceable\\
-Scatter reductions & Accumulates edge and network contributions & Matches unstructured-mesh connectivity\\
-\texttt{lax.while\_loop} & Keeps adaptive time integration on device & Avoids a Python-controlled inner timestep loop\\
-Device synchronization & Waits for completed accelerator work & Prevents asynchronous timing bias\\
-\bottomrule
-\end{tabularx}
+\begin{frame}{10. Production outputs passed all eight numerical parity gates}
+\begin{columns}[T,onlytextwidth]
+\column{0.27\textwidth}
+\includegraphics[width=\linewidth,height=.27\textheight,keepaspectratio]{09_final_depth_cupy.png}
+{\centering\tiny 24-hour final depth\par}
+
+\includegraphics[width=\linewidth,height=.27\textheight,keepaspectratio]{18_spatial_depth_difference.png}
+{\centering\tiny Final JAX--CuPy difference\par}
+\column{0.32\textwidth}
+\includegraphics[width=\linewidth,height=.27\textheight,keepaspectratio]{16_parity_rmse.png}
+{\centering\tiny Hourly depth RMSE\par}
+
+\includegraphics[width=\linewidth,height=.27\textheight,keepaspectratio]{17_parity_csi.png}
+{\centering\tiny Hourly flood-extent CSI\par}
+\column{0.37\textwidth}
+\begin{block}{\centering ALL 8 GATES PASSED}
+\centering
+\small Maximum hourly depth RMSE\\
+{\Large\bfseries\color{hfgreen}0.000979348 m}
 
 \vspace{3mm}
-\begin{alertblock}{Scope actually exercised}
-The experiment used one GPU and float32 arrays. Automatic differentiation, \texttt{vmap},
-\texttt{pmap}, multi-GPU execution and AI training were not part of the reported production
-comparison; no benefit from those features is claimed.
-\end{alertblock}
-\jaxsource
+\small Minimum hourly CSI\\
+{\Large\bfseries\color{hfgreen}0.998031}
+
+\vspace{3mm}
+\small Difference between maximum final depths\\
+{\Large\bfseries\color{hfgreen}$\approx7.63\times10^{-6}$ m}
+\end{block}
+\scriptsize
+The maximum hourly volume error was 0.033294\%; the maximum snapshot-time mismatch was
+0.318359 s. Every remaining registered gate also passed.
+\end{columns}
+\evsource
 \end{frame}
 
 % 12
-\begin{frame}{11. Verification and experimental protocol}
-\begin{columns}[T,onlytextwidth]
-\column{0.49\textwidth}
-\begin{block}{24-hour production verification}
-Same hashed inputs, float32 state, CFL 0.85, 1 s maximum timestep, 5 m s$^{-1}$ velocity
-ceiling and 25 stored states. CuPy is the implementation reference; it is not observational
-truth.
-\end{block}
-\textbf{Eight gates:} depth RMSE, flood CSI, volume error, finite/non-negative depth,
-mass-residual regression, maximum depth, time alignment and source--sink ledger agreement.
-\column{0.47\textwidth}
-\begin{block}{Completed software baseline}
+\begin{frame}{11. Independent repeats were numerically stable, not bitwise identical}
 \centering
-\Large\textbf{111 passed}\par
-\normalsize 37 explicit skips; 0 failures; 0 errors
+\begin{columns}[T,onlytextwidth]
+\column{0.46\textwidth}
+\begin{block}{\centering CuPy repeat run}
+\centering
+{\Large\bfseries RMSE = 0.000416766 m}\par
+\vspace{2mm}
+Minimum CSI = 0.998740\\
+Maximum time offset = 0.354492 s\\
+Step-count difference = 28\\[2mm]
+\color{hfgreen}\bfseries Registered criteria: PASSED
 \end{block}
-\begin{block}{Secondary performance protocol}
-Identical 60-minute production workload; three warm-ups and ten synchronized measurements
-per backend. Every timed output passed correctness checks.
+\column{0.46\textwidth}
+\begin{block}{\centering JAX repeat run}
+\centering
+{\Large\bfseries RMSE = 0.000406100 m}\par
+\vspace{2mm}
+Minimum CSI = 0.998031\\
+Maximum time offset = 0.337891 s\\
+Step-count difference = 24\\[2mm]
+\color{hfgreen}\bfseries Registered criteria: PASSED
 \end{block}
 \end{columns}
+
+\vspace{5mm}
+\begin{alertblock}{Correct interpretation}
+\centering
+Both backends were numerically repeatable within the approved criteria, but neither archive
+was byte-for-byte identical. The evidence does not isolate the low-level cause of the small
+difference, so no unsupported explanation is assigned.
+\end{alertblock}
 \evsource
 \end{frame}
 
 % 13
-\begin{frame}{12. Production inundation results}
+\begin{frame}{12. CuPy had the lower median runtime for the tested workload}
 \begin{columns}[T,onlytextwidth]
-\column{0.50\textwidth}
-\includegraphics[width=\linewidth,height=0.62\textheight,keepaspectratio]{09_final_depth_cupy.png}
-\centering{\tiny Final surface depth after 24 hours}
-\column{0.50\textwidth}
-\includegraphics[width=\linewidth,height=0.62\textheight,keepaspectratio]{10_maximum_depth_cupy.png}
-\centering{\tiny Event maximum surface depth}
+\column{0.55\textwidth}
+\includegraphics[width=\linewidth,height=.62\textheight,keepaspectratio]{19_runtime_distribution.png}
+\centering{\tiny Three warm-ups followed by ten synchronized measurements per backend}
+\column{0.41\textwidth}
+\resultbox{CuPy median}{17.267 s}
+
+\vspace{1.5mm}
+\resultbox{JAX median}{18.213 s}
+
+\vspace{1.5mm}
+\fcolorbox{hforange}{white}{\parbox[c][14mm][c]{0.34\textwidth}{\centering
+{\scriptsize Measured difference}\par\vspace{1mm}
+{\large\bfseries\color{hforange}JAX +5.476\%}}}
+
+\vspace{1.5mm}
+\scriptsize
+Completed secondary benchmark: identical 60-minute production workload; all twenty timed
+outputs passed correctness checks.
 \end{columns}
+
 \vspace{2mm}
-\centering\small
-\textbf{CuPy:} maximum depth 9.414836884 m; 129,187 final wet triangles.\quad
-\textbf{JAX:} maximum depth 9.414829254 m; 129,180 final wet triangles.
+\centering\footnotesize\bfseries This is workload- and hardware-specific, not a universal CuPy-versus-JAX ranking.
 \evsource
 \end{frame}
 
 % 14
-\begin{frame}{13. Flood extent, arrival and duration}
+\begin{frame}{13. The evidence supports numerical claims within clear boundaries}
 \begin{columns}[T,onlytextwidth]
-\column{0.333\textwidth}
-\includegraphics[width=\linewidth]{11_wet_extent.png}
-\centering{\tiny Wet extent through the event}
-\column{0.333\textwidth}
-\includegraphics[width=\linewidth]{12_arrival_time.png}
-\centering{\tiny Arrival time at $h>0.05$ m}
-\column{0.333\textwidth}
-\includegraphics[width=\linewidth]{13_flood_duration.png}
-\centering{\tiny Number of wet stored states}
+\column{0.47\textwidth}
+\begin{block}{What the study demonstrates}
+\small
+\begin{itemize}\tightitem
+\item Complete city-scale surface--drainage GPU execution
+\item Cross-backend numerical parity
+\item Within-backend numerical repeatability
+\item A completed repeated 60-minute GPU comparison
+\item Reproducible inputs, tests, records and checksums
+\end{itemize}
+\end{block}
+\column{0.49\textwidth}
+\begin{alertblock}{What it does not demonstrate}
+\small
+\begin{itemize}\tightitem
+\item No observations: no physical-validation claim
+\item One event: no event-to-event generalization
+\item Incomplete repeated 24-hour benchmark: no official ratio
+\item ANUGA controlled cases: numerical reference only
+\item No bytewise-determinism or production AI claim
+\end{itemize}
+\end{alertblock}
 \end{columns}
 
-\vspace{2mm}
-\small
-Flood extent uses the registered 0.05 m threshold. Arrival and duration are derived from 25
-stored states, so their effective temporal resolution is hourly. The duration product is a
-wet-snapshot count, not a continuously integrated exposure duration.
-\evsource
+\vspace{4mm}
+\centering\color{hfblue}\bfseries Numerical agreement between implementations is not proof of real-world predictive accuracy.
 \end{frame}
 
 % 15
-\begin{frame}{14. Velocity, storage and coupled mass response}
-\begin{columns}[T,onlytextwidth]
-\column{0.39\textwidth}
-\includegraphics[width=\linewidth,height=.37\textheight,keepaspectratio]{14_velocity.png}
-\centering{\tiny CuPy event maximum velocity}
-\column{0.59\textwidth}
-\includegraphics[width=\linewidth,height=.37\textheight,keepaspectratio]{15_storage.png}
-\centering{\tiny Surface and drainage-node storage}
-\end{columns}
-
-\vspace{1mm}
-\small
-Maximum recorded speed was 1.712713 m s$^{-1}$ for CuPy and 1.712712 m s$^{-1}$ for JAX,
-below the 5 m s$^{-1}$ safety ceiling. Final surface storage was 23.378 and
-23.376 million m$^3$; final drainage-node storage was 0.4204 million m$^3$ in both paths.
-
-\[
-R_M=V_{s,0}+V_{n,0}+\sum V_{\rm in}-\sum V_{\rm loss}-V_{s,f}-V_{n,f}-V_{r,f}.
-\]
-\evsource
-\end{frame}
-
-% 16
-\begin{frame}{15. Cross-backend numerical parity}
-\begin{columns}[T,onlytextwidth]
-\column{0.33\textwidth}
-\includegraphics[width=\linewidth,height=.31\textheight,keepaspectratio]{16_parity_rmse.png}
-\centering{\tiny Hourly depth RMSE}
-\column{0.33\textwidth}
-\includegraphics[width=\linewidth,height=.31\textheight,keepaspectratio]{17_parity_csi.png}
-\centering{\tiny Hourly flood-extent CSI}
-\column{0.33\textwidth}
-\includegraphics[width=\linewidth,height=.31\textheight,keepaspectratio]{18_spatial_depth_difference.png}
-\centering{\tiny Final JAX--CuPy depth difference}
-\end{columns}
-
-\vspace{1mm}
-\scriptsize
-\begin{tabularx}{\textwidth}{@{}Xrrc@{}}
-\toprule
-\textbf{Gate} & \textbf{Limit} & \textbf{Observed} & \textbf{Result}\\
-\midrule
-Maximum hourly depth RMSE & $\leq0.05$ m & 0.000979348 m & Pass\\
-Minimum hourly flood CSI & $\geq0.95$ & 0.998031 & Pass\\
-Maximum hourly volume error & $\leq2\%$ & 0.033294\% & Pass\\
-Snapshot-time mismatch & $\leq1$ s & 0.318359 s & Pass\\
-Source--sink ledger difference & $\leq2\%$ & 1.543653\% & Pass\\
-\bottomrule
-\end{tabularx}
-\centering\normalsize\color{hfgreen}\textbf{All eight registered parity gates passed.}
-\evsource
-\end{frame}
-
-% 17
-\begin{frame}{16. Repeatability and measured GPU performance}
-\begin{columns}[T,onlytextwidth]
-\column{0.44\textwidth}
-\textbf{Independent 24-hour repeat runs}
-\vspace{1mm}
-
-\scriptsize
-\begin{tabular}{@{}lrr@{}}
-\toprule
-& \textbf{CuPy} & \textbf{JAX}\\
-\midrule
-Depth RMSE (m) & 0.000416766 & 0.000406100\\
-Minimum CSI & 0.998740 & 0.998031\\
-Maximum time offset (s) & 0.354492 & 0.337891\\
-Step-count difference & 28 & 24\\
-Bitwise identical & No & No\\
-\bottomrule
-\end{tabular}
-
-\vspace{3mm}
-\small Both backends are \textbf{numerically repeatable within the approved criteria}, but
-neither is bitwise deterministic.
-\column{0.54\textwidth}
-\includegraphics[width=\linewidth]{19_runtime_distribution.png}
-\centering{\tiny Three warm-ups and ten measurements per backend}
-
-\small
-CuPy median: \textbf{17.267 s}\qquad JAX median: \textbf{18.213 s}
-
-JAX was \textbf{5.476\% slower} for this specific completed 60-minute workload. All timing
-correctness checks passed.
-\end{columns}
-\evsource
-\end{frame}
-
-% 18
-\begin{frame}{17. Conclusions and defensible project claims}
-\begin{block}{Primary conclusion}
-\small
-Equivalent CuPy/CUDA and JAX/XLA implementations successfully executed the complete
-production urban flood model on one NVIDIA GPU, and all registered cross-backend numerical
-gates passed.
+\begin{frame}{14. Conclusion: equivalent GPU implementations were achieved}
+\begin{block}{Direct answer to the research question}
+The same production flood model was implemented through CuPy/CUDA and JAX/XLA, and both
+paths satisfied the predefined numerical requirements on one NVIDIA GPU.
 \end{block}
 
 \begin{columns}[T,onlytextwidth]
 \column{0.48\textwidth}
-\textbf{What was demonstrated}
 \begin{itemize}\tightitem
-\item City-scale coupled surface--drainage execution
-\item Numerical parity throughout 24 hours
-\item Within-backend numerical repeatability
-\item Valid repeated secondary performance comparison
+\item All eight cross-backend parity gates passed.
+\item Both backends passed numerical-repeatability criteria.
+\item CuPy had the lower median runtime in the completed secondary benchmark for this workload.
 \end{itemize}
 \column{0.48\textwidth}
-\textbf{Correct scientific boundary}
-
-The results demonstrate GPU implementation consistency, not agreement with observed flood
-measurements. ANUGA is external reference context only and contributes no production result.
-The incomplete repeated 24-hour timing series is not used as an official benchmark ratio.
+\begin{itemize}\tightitem
+\item The result is a tested, reproducible and scientifically qualified GPU backend comparison.
+\item It is not evidence of observational flood accuracy or an operational AI forecasting system.
+\end{itemize}
 \end{columns}
 
-\vspace{1mm}
+\vspace{4mm}
 \centering
-\color{hfblue}\large\textbf{Completed outcome: a verified, reproducible GPU numerical study.}
-\evsource
+\color{hfgreen}\large\bfseries Verified physics $\rightarrow$ numerical parity $\rightarrow$ defensible performance
 
-\vspace{1mm}
-{\tiny\color{gray}\url{https://github.com/arsanjeevk/gpu-urban-flood-cupy-jax}}
+\vspace{4mm}
+{\scriptsize\color{hfblue}\url{https://github.com/arsanjeevk/gpu-urban-flood-cupy-jax}}
+\evsource
 \end{frame}
 
 \end{document}
