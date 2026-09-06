@@ -28,7 +28,7 @@
     GPU-Accelerated Physics-Based Urban Flood Modelling
   \end{beamercolorbox}%
   \begin{beamercolorbox}[wd=.22\paperwidth,ht=2.7ex,dp=1.1ex,rightskip=1em plus1fil]{date in head/foot}%
-    \insertframenumber/15
+    \insertframenumber/\inserttotalframenumber
   \end{beamercolorbox}}
 }
 \setbeamertemplate{caption}{\raggedright\insertcaption\par}
@@ -36,6 +36,7 @@
 \setlength{\tabcolsep}{4pt}
 
 \newcommand{\evsource}{\par\vspace{1mm}{\tiny\color{gray}Source: \texttt{HF\_CUPY\_JAX\_COMPLETED\_PROJECT}.}}
+\newcommand{\jaxsource}{\par\vspace{1mm}{\tiny\color{gray}Background synthesis: S. Borah, \textit{High-Performance Scientific Computing in Python: The JAX Ecosystem} (2026); project implementation evidence.}}
 \newcommand{\tightitem}{\setlength\itemsep{2pt}\setlength\parskip{0pt}}
 
 \title{GPU-Accelerated Physics-Based\\Urban Flood Modelling}
@@ -289,7 +290,98 @@ availability was recorded, but PyTorch did not execute the reported production e
 \end{frame}
 
 % 9
-\begin{frame}{8. Verification and experimental protocol}
+\begin{frame}{8. PyTorch/CUDA: capability and project role}
+\begin{columns}[T,onlytextwidth]
+\column{0.47\textwidth}
+\begin{block}{What PyTorch provides}
+\small
+An imperative tensor-programming interface, CUDA device execution, automatic differentiation
+and a mature ecosystem for scientific machine learning and neural-network development.
+\end{block}
+\small
+Its eager execution model is convenient for inspecting intermediate tensors, while graph
+capture and compilation facilities can optimize suitable workloads.
+
+\column{0.49\textwidth}
+\begin{block}{Role in this completed experiment}
+\small
+PyTorch 2.13.0+cu130 was installed and CUDA availability was confirmed on the production
+system. It did \textbf{not} execute the reported flood simulations.
+\end{block}
+\small
+The measured backends were CuPy/CUDA and JAX/XLA. Consequently:
+\begin{itemize}\tightitem
+\item no PyTorch runtime is reported;
+\item no PyTorch speed ranking is claimed;
+\item PyTorch is discussed only as relevant GPU-computing context.
+\end{itemize}
+\end{columns}
+\evsource
+\end{frame}
+
+% 10
+\begin{frame}{9. JAX: functional programs compiled through XLA}
+\begin{columns}[T,onlytextwidth]
+\column{0.56\textwidth}
+\begin{block}{Pure state transition}
+\[
+(\bm U^{n+1},\bm D^{n+1})=
+\Phi(\bm U^n,\bm D^n;\,\Delta t,\mathcal G,\mathcal P),
+\]
+where surface state $\bm U$, drainage state $\bm D$, geometry $\mathcal G$ and physical
+parameters $\mathcal P$ are explicit inputs and outputs.
+\end{block}
+\small
+JAX traces array operations with known shapes and dtypes, constructs an intermediate graph,
+and lowers it through XLA. XLA can fuse compatible operations and generate device code while
+JAX preserves an immutable programming interface.
+
+\column{0.40\textwidth}
+\centering
+\setlength{\fboxsep}{5pt}
+\fcolorbox{hfblue}{hflight}{\parbox{0.76\linewidth}{\centering Python array function}}
+
+$\Downarrow$ trace
+
+\fcolorbox{hfblue}{hflight}{\parbox{0.76\linewidth}{\centering JAX computation graph}}
+
+$\Downarrow$ lower and optimize
+
+\fcolorbox{hfblue}{hflight}{\parbox{0.76\linewidth}{\centering XLA executable}}
+
+$\Downarrow$
+
+\fcolorbox{hfgreen}{white}{\parbox{0.76\linewidth}{\centering NVIDIA GPU}}
+\end{columns}
+\jaxsource
+\end{frame}
+
+% 11
+\begin{frame}{10. JAX/XLA choices in the flood solver}
+\small
+\begin{tabularx}{\textwidth}{@{}p{0.24\textwidth}XX@{}}
+\toprule
+\textbf{JAX mechanism} & \textbf{Use in this project} & \textbf{Scientific implication}\\
+\midrule
+\texttt{jit} and XLA & Compiles the production update & Compilation is distinguished from steady execution\\
+Immutable state & Named state tuples are returned by each update & State evolution is explicit and traceable\\
+Scatter reductions & Accumulates edge and network contributions & Matches unstructured-mesh connectivity\\
+\texttt{lax.while\_loop} & Keeps adaptive time integration on device & Avoids a Python-controlled inner timestep loop\\
+Device synchronization & Waits for completed accelerator work & Prevents asynchronous timing bias\\
+\bottomrule
+\end{tabularx}
+
+\vspace{3mm}
+\begin{alertblock}{Scope actually exercised}
+The experiment used one GPU and float32 arrays. Automatic differentiation, \texttt{vmap},
+\texttt{pmap}, multi-GPU execution and AI training were not part of the reported production
+comparison; no benefit from those features is claimed.
+\end{alertblock}
+\jaxsource
+\end{frame}
+
+% 12
+\begin{frame}{11. Verification and experimental protocol}
 \begin{columns}[T,onlytextwidth]
 \column{0.49\textwidth}
 \begin{block}{24-hour production verification}
@@ -313,8 +405,8 @@ per backend. Every timed output passed correctness checks.
 \evsource
 \end{frame}
 
-% 10
-\begin{frame}{9. Production inundation results}
+% 13
+\begin{frame}{12. Production inundation results}
 \begin{columns}[T,onlytextwidth]
 \column{0.50\textwidth}
 \includegraphics[width=\linewidth,height=0.62\textheight,keepaspectratio]{09_final_depth_cupy.png}
@@ -330,8 +422,8 @@ per backend. Every timed output passed correctness checks.
 \evsource
 \end{frame}
 
-% 11
-\begin{frame}{10. Flood extent, arrival and duration}
+% 14
+\begin{frame}{13. Flood extent, arrival and duration}
 \begin{columns}[T,onlytextwidth]
 \column{0.333\textwidth}
 \includegraphics[width=\linewidth]{11_wet_extent.png}
@@ -352,8 +444,8 @@ wet-snapshot count, not a continuously integrated exposure duration.
 \evsource
 \end{frame}
 
-% 12
-\begin{frame}{11. Velocity, storage and coupled mass response}
+% 15
+\begin{frame}{14. Velocity, storage and coupled mass response}
 \begin{columns}[T,onlytextwidth]
 \column{0.39\textwidth}
 \includegraphics[width=\linewidth,height=.37\textheight,keepaspectratio]{14_velocity.png}
@@ -375,8 +467,8 @@ R_M=V_{s,0}+V_{n,0}+\sum V_{\rm in}-\sum V_{\rm loss}-V_{s,f}-V_{n,f}-V_{r,f}.
 \evsource
 \end{frame}
 
-% 13
-\begin{frame}{12. Cross-backend numerical parity}
+% 16
+\begin{frame}{15. Cross-backend numerical parity}
 \begin{columns}[T,onlytextwidth]
 \column{0.33\textwidth}
 \includegraphics[width=\linewidth,height=.31\textheight,keepaspectratio]{16_parity_rmse.png}
@@ -406,8 +498,8 @@ Source--sink ledger difference & $\leq2\%$ & 1.543653\% & Pass\\
 \evsource
 \end{frame}
 
-% 14
-\begin{frame}{13. Repeatability and measured GPU performance}
+% 17
+\begin{frame}{16. Repeatability and measured GPU performance}
 \begin{columns}[T,onlytextwidth]
 \column{0.44\textwidth}
 \textbf{Independent 24-hour repeat runs}
@@ -442,8 +534,8 @@ correctness checks passed.
 \evsource
 \end{frame}
 
-% 15
-\begin{frame}{14. Conclusions and defensible project claims}
+% 18
+\begin{frame}{17. Conclusions and defensible project claims}
 \begin{block}{Primary conclusion}
 \small
 Equivalent CuPy/CUDA and JAX/XLA implementations successfully executed the complete
@@ -472,6 +564,9 @@ The incomplete repeated 24-hour timing series is not used as an official benchma
 \centering
 \color{hfblue}\large\textbf{Completed outcome: a verified, reproducible GPU numerical study.}
 \evsource
+
+\vspace{1mm}
+{\tiny\color{gray}\url{https://github.com/arsanjeevk/gpu-urban-flood-cupy-jax}}
 \end{frame}
 
 \end{document}

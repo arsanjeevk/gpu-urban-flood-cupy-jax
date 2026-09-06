@@ -178,6 +178,11 @@ production AI training and operational forecasting claims are outside the eviden
 contribution is a tested, reproducible GPU numerical model and a scientifically qualified
 comparison of its two accelerator implementations.
 
+\medskip
+\noindent\textbf{Code availability:} The implementation, experiment configurations,
+verification evidence and report sources are available at
+\url{https://github.com/arsanjeevk/gpu-urban-flood-cupy-jax}.
+
 \noindent\textbf{Keywords:} shallow-water equations; urban flooding; GPU computing;
 CuPy; CUDA; JAX; XLA; finite volume method; numerical verification; drainage coupling.
 \clearpage
@@ -1425,8 +1430,7 @@ and physics-only baselines and should preserve uncertainty and failure reporting
 This project implemented the same production urban flood model through CuPy/CUDA and
 JAX/XLA on a single GPU. The executed model includes the complete triangular surface,
 terrain, spatial roughness, rainfall, Horton infiltration, recharge, dynamic drainage,
-surcharge, outfalls, external inflow and boundary treatment. This is the complete production
-model evaluated in this report.
+surcharge, outfalls, external inflow and boundary treatment.
 
 The central numerical objective was achieved: all eight cross-backend parity gates passed.
 The final depth RMSE was \SI{0.000979348}{\metre}, final flood-extent CSI was 0.999590 and
@@ -1451,7 +1455,8 @@ scientifically precise than treating successful computation as proof of real-wor
 \addcontentsline{toc}{chapter}{Reproducibility and Evidence Statement}
 The authoritative source for the completed production runs, parity, repeatability, software
 verification and secondary benchmark is the repository folder
-\path{HF_CUPY_JAX_COMPLETED_PROJECT}.
+\path{HF_CUPY_JAX_COMPLETED_PROJECT}. The project repository is publicly available at
+\url{https://github.com/arsanjeevk/gpu-urban-flood-cupy-jax} \cite{projectrepo}.
 Key evidence consists of \texttt{COMPLETION\_ADDENDUM.md}, test output and summary,
 backend run reports, hourly parity tables, validation gates, mass ledgers, repeatability
 metrics, raw secondary benchmark measurements, environment metadata, source manifests and
@@ -1494,6 +1499,12 @@ modified or regenerated during report preparation.
 % =============================================================================
 \begin{thebibliography}{99}
 \addcontentsline{toc}{chapter}{References}
+
+\bibitem{projectrepo}
+S. Kumawat, \emph{GPU-Accelerated Physics-Based Urban Flood Modelling Using
+CuPy/CUDA and JAX/XLA}, project source code, configurations, verification evidence and
+report sources, 2026. Available:
+\url{https://github.com/arsanjeevk/gpu-urban-flood-cupy-jax}.
 
 \bibitem{leveque2002}
 R. J. LeVeque, \emph{Finite Volume Methods for Hyperbolic Problems}.
